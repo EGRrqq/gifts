@@ -1,1 +1,1 @@
-export { default as BuhRouter } from "./buh.ts";
+export { default as BuhRouter } from "./buh";
