@@ -1,15 +1,23 @@
+import { useEffect, useState } from "react";
+
+interface IData {
+  buh: string;
+}
+
 function App() {
-  const link = import.meta.env.PROD ? import.meta.env.VITE_API_LINK : "./api";
+  const [data, setData] = useState<IData | null>();
 
-  console.log("meta: ", import.meta.env);
+  useEffect(() => {
+    const link = import.meta.env.PROD ? import.meta.env.VITE_API_LINK : "./api";
 
-  fetch(link + "/buh")
-    .then((res) => res.json())
-    .then((data) => console.log(data));
+    fetch(link + "/buh")
+      .then((res) => res.json())
+      .then((data: IData) => setData(data));
+  }, []);
 
   return (
     <>
-      <h1>buh</h1>
+      <h1>{data?.buh}</h1>
     </>
   );
 }
