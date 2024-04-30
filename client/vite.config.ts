@@ -9,4 +9,9 @@ export default defineConfig({
     outDir: "../dist",
     assetsDir: "",
   },
+  server: {
+    proxy: {
+      "/api": "http://localhost:1234/",
+    },
+  },
 });
