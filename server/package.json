@@ -5,7 +5,8 @@
   "main": "./src/index.ts",
   "author": "egrqq",
   "scripts": {
-    "server": "nodemon -w ./ -x tsx ./src"
+    "server": "nodemon -w ./ -x tsx ./src",
+    "vercel-build": "echo bruh"
   },
   "dependencies": {
     "cors": "^2.8.5",
