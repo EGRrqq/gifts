@@ -2,7 +2,7 @@
   "name": "gifts-server",
   "private": true,
   "version": "0.0.0",
-  "main": "app.ts",
+  "main": "./src/index.ts",
   "author": "egrqq",
   "scripts": {
     "server": "nodemon -w ./ -x tsx ./src"
@@ -11,7 +11,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
