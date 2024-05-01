@@ -1,1 +1,1 @@
-export { default as BuhRouter } from "./buh";
+export { default as giftCardRouter } from "./giftCard.router";
