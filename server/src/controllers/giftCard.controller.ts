@@ -7,6 +7,8 @@ export const get: TExpressParams = async (_, res, next) => {
   try {
     res.json(await getMultiple());
   } catch (err) {
+    res.json([]);
+
     console.error(`Error while getting gift cards`, err.message);
     next(err);
   }
