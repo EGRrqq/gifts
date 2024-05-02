@@ -8,11 +8,18 @@ interface IGiftCard {
   denomination: number;
 }
 
-export async function getMultiple() {
+export async function getAll() {
   const data = await promiseQuery("select * from gift_cards");
   const rows = await validateRows(data.result);
 
   return rows;
+}
+export async function findById(id: number) {
+  const data = await promiseQuery("SELECT * FROM gift_cards WHERE id = ?", [
+    id,
+  ]);
+
+  return data.result;
 }
 
 export async function create(giftCard: IGiftCard) {
