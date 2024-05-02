@@ -49,12 +49,10 @@ export const getSingle: TExpressParams = async (req, res, next) => {
 
 export const create: TExpressParams = async (req, res, next) => {
   try {
-    const data = await giftCard.create(getCard(req));
+    await giftCard.create(getCard(req));
 
-    if (data.affectedRows) {
-      const message = "Card created successfully";
-      res.json({ message });
-    }
+    const message = "Card created successfully";
+    res.json({ message });
   } catch (err) {
     const message = "Error while creating gift cards";
 
@@ -83,6 +81,24 @@ export const update: TExpressParams = async (req, res, next) => {
     const message = "Error while updating gift cards";
 
     res.status(500).send({
+      message: err.message || message,
+    });
+    next(err);
+  }
+};
+
+export const remove: TExpressParams = async (req, res, next) => {
+  try {
+    const data = await giftCard.remove(parseInt(req.params.id));
+
+    if (data.affectedRows) {
+      const message = "Card deleted successfully";
+      res.json({ message });
+    }
+  } catch (err) {
+    const message = "Error while deleted gift card";
+
+    res.status(500).json({
       message: err.message || message,
     });
     next(err);

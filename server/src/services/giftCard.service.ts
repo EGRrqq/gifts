@@ -31,6 +31,14 @@ export async function create(giftCard: IGiftCard) {
   return result;
 }
 
+export async function remove(id: number) {
+  const { result } = await promiseQuery(`DELETE FROM gift_cards WHERE id = ?`, [
+    id,
+  ]);
+
+  return result;
+}
+
 export async function update(id: number, giftCard: IGiftCard) {
   const { name, denomination, expiration_date, remaining_quantity } = giftCard;
 
