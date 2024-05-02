@@ -1,5 +1,5 @@
 import { promiseQuery } from "./db.service";
-import { validateRows } from "../utils/helpers.util";
+import { validateRows, validateWithId } from "../utils/helpers.util";
 
 interface IGiftCard {
   name: string;
@@ -9,17 +9,10 @@ interface IGiftCard {
 }
 
 export async function getAll() {
-  const data = await promiseQuery("select * from gift_cards");
-  const rows = await validateRows(data.result);
+  const { result } = await promiseQuery("select * from gift_cards");
+  const rows = validateRows(result);
 
   return rows;
-}
-export async function findById(id: number) {
-  const data = await promiseQuery("SELECT * FROM gift_cards WHERE id = ?", [
-    id,
-  ]);
-
-  return data.result;
 }
 
 export async function create(giftCard: IGiftCard) {
@@ -28,6 +21,21 @@ export async function create(giftCard: IGiftCard) {
     giftCard
   );
 
+  let message = "";
+  result.affectedRows
+    ? (message = "Gift Card created successfully")
+    : (message = "Error in creating gift card");
+
+  return { message };
+}
+
+export async function findById(id: number) {
+  const { result } = await promiseQuery(
+    "SELECT * FROM gift_cards WHERE id = ?",
+    [id]
+  );
+
+  validateWithId(result, id);
   return result;
 }
 
@@ -36,7 +44,9 @@ export async function remove(id: number) {
     id,
   ]);
 
-  return result;
+  validateWithId(result, id);
+  const message = "Gift card removed successfully";
+  return { message };
 }
 
 export async function update(id: number, giftCard: IGiftCard) {
@@ -47,5 +57,7 @@ export async function update(id: number, giftCard: IGiftCard) {
     [name, remaining_quantity, expiration_date, denomination, id]
   );
 
-  return result;
+  validateWithId(result, id);
+  const message = "Gift Card updated successfully";
+  return { message };
 }
