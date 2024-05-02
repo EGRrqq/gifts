@@ -23,8 +23,21 @@ export async function findById(id: number) {
 }
 
 export async function create(giftCard: IGiftCard) {
-  await promiseQuery(`INSERT INTO gift_cards SET ?`, giftCard);
+  const { result } = await promiseQuery(
+    `INSERT INTO gift_cards SET ?`,
+    giftCard
+  );
 
-  const message = "Card created successfully";
-  return { message };
+  return result;
+}
+
+export async function update(id: number, giftCard: IGiftCard) {
+  const { name, denomination, expiration_date, remaining_quantity } = giftCard;
+
+  const { result } = await promiseQuery(
+    "UPDATE gift_cards SET name = ?, remaining_quantity = ?, expiration_date = ?, denomination = ? WHERE id = ?",
+    [name, remaining_quantity, expiration_date, denomination, id]
+  );
+
+  return result;
 }
