@@ -1,12 +1,6 @@
 import { promiseQuery } from "./db.service";
 import { validateRows, validateWithId } from "../utils/helpers.util";
-
-interface IGiftCard {
-  name: string;
-  remaining_quantity: number;
-  expiration_date: string;
-  denomination: number;
-}
+import { IGiftCard } from "../models";
 
 export async function getAll() {
   const { result } = await promiseQuery("select * from gift_cards");

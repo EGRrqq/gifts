@@ -1,16 +1,6 @@
-import { Request, Response, NextFunction } from "express";
+import { TExpressParams } from "./TExpressParams";
 import * as giftCard from "../services/giftCard.service";
-
-type TExpressParams = (req: Request, res: Response, next: NextFunction) => void;
-
-const getCard = (req: Request) => {
-  return {
-    name: req.body.name,
-    expiration_date: req.body.expiration_date,
-    remaining_quantity: req.body.remaining_quantity,
-    denomination: req.body.denomination,
-  };
-};
+import { GiftCard } from "../models";
 
 export const get: TExpressParams = async (_, res, next) => {
   try {
@@ -42,7 +32,7 @@ export const getSingle: TExpressParams = async (req, res, next) => {
 
 export const create: TExpressParams = async (req, res, next) => {
   try {
-    const data = await giftCard.create(getCard(req));
+    const data = await giftCard.create(new GiftCard(req));
     res.json(data);
   } catch (err) {
     const message = "Error while creating Gift Cards";
@@ -56,7 +46,10 @@ export const create: TExpressParams = async (req, res, next) => {
 
 export const update: TExpressParams = async (req, res, next) => {
   try {
-    const data = await giftCard.update(parseInt(req.params.id), getCard(req));
+    const data = await giftCard.update(
+      parseInt(req.params.id),
+      new GiftCard(req)
+    );
     res.json(data);
   } catch (err) {
     const message = "Error while updating Gift Card";
