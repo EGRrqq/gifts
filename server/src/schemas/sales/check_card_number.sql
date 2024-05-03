@@ -1,5 +1,5 @@
 DELIMITER //
-CREATE TRIGGER card_numbers_check BEFORE INSERT ON sales
+CREATE TRIGGER check_card_number BEFORE INSERT ON sales
 FOR EACH ROW
 BEGIN
     IF LENGTH(NEW.card_numbers) > 5000 THEN

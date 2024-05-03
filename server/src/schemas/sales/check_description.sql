@@ -1,5 +1,5 @@
 DELIMITER //
-CREATE TRIGGER description_check BEFORE INSERT ON sales
+CREATE TRIGGER check_description BEFORE INSERT ON sales
 FOR EACH ROW
 BEGIN
     IF LENGTH(NEW.description) > 500 THEN
