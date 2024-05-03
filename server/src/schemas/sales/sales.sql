@@ -5,6 +5,6 @@ CREATE TABLE sales (
   gift_card_id INT NOT NULL,
   day_to_claim_gift INT NOT NULL,
   description TEXT,
-  card_number TEXT,
+  card_numbers TEXT,
   FOREIGN KEY (gift_card_id) REFERENCES gift_cards(id)
 );
