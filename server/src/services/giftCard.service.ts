@@ -29,7 +29,7 @@ export async function findById(id: number) {
     [id]
   );
 
-  validateWithId(result, id);
+  validateWithId({ result, id, item: "Gift Card" });
   return result;
 }
 
@@ -38,7 +38,7 @@ export async function remove(id: number) {
     id,
   ]);
 
-  validateWithId(result, id);
+  validateWithId({ result, id, item: "Gift Card" });
   const message = "Gift card removed successfully";
   return { message };
 }
@@ -51,7 +51,7 @@ export async function update(id: number, giftCard: IGiftCard) {
     [name, remaining_quantity, expiration_date, denomination, id]
   );
 
-  validateWithId(result, id);
+  validateWithId({ result, id, item: "Gift Card" });
   const message = "Gift Card updated successfully";
   return { message };
 }
