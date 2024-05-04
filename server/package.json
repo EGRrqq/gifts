@@ -6,6 +6,7 @@
   "author": "egrqq",
   "scripts": {
     "server": "nodemon -w ./ -x tsx ./src",
+    "create-db": "bash ./src/schemas/init.sh",
     "vercel-build": "echo bruh"
   },
   "dependencies": {
