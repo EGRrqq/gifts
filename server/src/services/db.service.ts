@@ -1,4 +1,4 @@
-import mysql, { Query } from "mysql";
+import mysql from "mysql";
 import { dbConfig } from "../db";
 import { FieldInfo, QueryOptions } from "mysql";
 
