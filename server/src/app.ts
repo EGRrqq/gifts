@@ -2,7 +2,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
-import { giftCardRouter } from "./routers";
+import { giftCardRouter, saleRouter } from "./routers";
 
 const app = express();
 
@@ -13,5 +13,6 @@ app.use(morgan("dev"));
 app.use(cors());
 
 app.use("/api/gift-cards", giftCardRouter);
+app.use("/api/sales", saleRouter);
 
 export default app;
