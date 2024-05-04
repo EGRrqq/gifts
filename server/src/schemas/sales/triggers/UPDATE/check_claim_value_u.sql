@@ -1,6 +1,6 @@
 DELIMITER //
-CREATE TRIGGER check_claim_value
-BEFORE INSERT ON sales
+CREATE TRIGGER check_claim_value_u
+BEFORE UPDATE ON sales
 FOR EACH ROW
 BEGIN
   DECLARE exp_date DATE;

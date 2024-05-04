@@ -1,6 +1,6 @@
 DELIMITER //
-CREATE TRIGGER check_expiration_date
-BEFORE INSERT ON gift_cards
+CREATE TRIGGER check_expiration_date_u
+BEFORE UPDATE ON gift_cards
 FOR EACH ROW
 BEGIN
   IF NEW.expiration_date < CURDATE() THEN 

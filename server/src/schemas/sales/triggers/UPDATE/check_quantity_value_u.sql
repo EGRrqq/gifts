@@ -1,6 +1,6 @@
 DELIMITER //
-CREATE TRIGGER check_quantity_value
-BEFORE INSERT ON sales
+CREATE TRIGGER check_quantity_value_u
+BEFORE UPDATE ON sales
 FOR EACH ROW
 BEGIN
   DECLARE quantity_of_gifts INT;

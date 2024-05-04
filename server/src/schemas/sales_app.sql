@@ -1,1 +1,2 @@
-CREATE DATABASE sales_app;
+CREATE DATABASE IF NOT EXISTS sales_app;
+USE sales_app;

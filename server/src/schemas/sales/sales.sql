@@ -8,3 +8,4 @@ CREATE TABLE sales (
   card_numbers TEXT NOT NULL,
   FOREIGN KEY (gift_card_id) REFERENCES gift_cards(id)
 );
+
