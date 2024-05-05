@@ -1,7 +1,7 @@
-import GiftCardSelect from "./components/GiftCardSelect";
+import SaleForm from "./components/SaleForm";
 
 const App = () => {
-  return <GiftCardSelect />;
+  return <SaleForm />;
 };
 
 export default App;
