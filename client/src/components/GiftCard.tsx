@@ -12,7 +12,14 @@ interface IGiftCardProps {
 
 export default function GiftCard({ card }: IGiftCardProps) {
   return (
-    <Card sx={{ display: "flex" }}>
+    <Card
+      sx={{
+        display: "flex",
+        flex: 1,
+        boxShadow: "0",
+        background: "transparent",
+      }}
+    >
       <Box sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
         <CardContent sx={{ flex: "1 0 auto" }}>
           <Typography component="div" variant="h5">

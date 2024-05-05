@@ -8,7 +8,14 @@ import { IGiftCard } from "../redux/giftCard/model/types";
 import { AppActions, AppState } from "../redux/store";
 import { boundRequestCards } from "../redux/giftCard/actions";
 import GiftCard from "./GiftCard";
-import { Stack } from "@mui/material";
+import {
+  Divider,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+} from "@mui/material";
 
 interface Props {}
 
@@ -38,11 +45,22 @@ const GiftCardSelect = ({ boundRequestCards, cards }: LinkProps) => {
   }, [boundRequestCards]);
 
   return (
-    <Stack spacing={5}>
-      {cards.map((c) => (
-        <GiftCard card={c} key={c.id} />
-      ))}
-    </Stack>
+    <FormControl fullWidth>
+      <InputLabel id="gift-cards-label">Gift Cards</InputLabel>
+      <Select
+        labelId="gift-cards-label"
+        id="gift-cards"
+        value={1}
+        label="Gift Cards"
+        // onChange={handleChange}
+      >
+        {cards.map((c) => (
+          <MenuItem style={{ display: "flex" }} key={c.id} value={c.id}>
+            <GiftCard card={c} />
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 };
 
