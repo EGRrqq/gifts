@@ -1,16 +1,43 @@
 import { useEffect } from "react";
+
 import { connect } from "react-redux";
-import { fetchGiftCard } from "./redux/actions/giftCard";
+import { bindActionCreators } from "redux";
+import { ThunkDispatch } from "redux-thunk";
 
-const App = ({ fetchGiftCard, giftCard }: any) => {
+import { IGiftCard } from "./redux/giftCard/model/types";
+import { AppActions, AppState } from "./redux/store";
+import { boundRequestCards } from "./redux/giftCard/actions";
+
+interface Props {}
+
+interface LinkStateProps {
+  cards: IGiftCard[];
+}
+
+interface LinkDispatchProps {
+  boundRequestCards: () => void;
+}
+
+type LinkProps = Props & LinkStateProps & LinkDispatchProps;
+
+const mapStateToProps = (state: AppState): LinkStateProps => ({
+  cards: state.giftCard.cards,
+});
+
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<AppState, void, AppActions>
+) => ({
+  boundRequestCards: bindActionCreators(boundRequestCards, dispatch),
+});
+
+const App = ({ boundRequestCards, cards }: LinkProps) => {
   useEffect(() => {
-    fetchGiftCard();
-  }, [fetchGiftCard]);
+    boundRequestCards();
+  }, [boundRequestCards]);
 
-  console.log();
   return (
     <>
-      {giftCard.map((c) => (
+      {cards.map((c) => (
         <section key={c.id}>
           <h1>Gift Card</h1>
           <p>Name: {c.name}</p>
@@ -23,8 +50,5 @@ const App = ({ fetchGiftCard, giftCard }: any) => {
   );
 };
 
-const mapStateToProps = (state: any) => {
-  return { giftCard: state.giftCard };
-};
-
-export default connect(mapStateToProps, { fetchGiftCard })(App);
+const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
+export default ConnectedApp;

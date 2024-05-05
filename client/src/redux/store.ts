@@ -1,7 +1,19 @@
-import { applyMiddleware, legacy_createStore } from "redux";
-import thunk from "redux-thunk";
-import rootReducer from "./reducers";
+import { applyMiddleware, combineReducers, legacy_createStore } from "redux";
+import thunk, { ThunkMiddleware } from "redux-thunk";
+import giftCardReducer from "./giftCard/reducer";
+import { GiftCardActionTypes } from "./giftCard/model/types";
 
-const store = legacy_createStore(rootReducer, applyMiddleware(thunk));
+const rootReducer = combineReducers({
+  giftCard: giftCardReducer,
+});
+
+// use pipe for AppActions when add a sales action types
+export type AppActions = GiftCardActionTypes;
+export type AppState = ReturnType<typeof rootReducer>;
+
+const store = legacy_createStore(
+  rootReducer,
+  applyMiddleware(thunk as ThunkMiddleware<AppState, AppActions>)
+);
 
 export default store;
