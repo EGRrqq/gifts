@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -8,14 +8,7 @@ import { IGiftCard } from "../redux/giftCard/model/types";
 import { AppActions, AppState } from "../redux/store";
 import { boundRequestCards } from "../redux/giftCard/actions";
 import GiftCard from "./GiftCard";
-import {
-  Divider,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  Stack,
-} from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 interface Props {}
 
@@ -40,6 +33,8 @@ const mapDispatchToProps = (
 });
 
 const GiftCardSelect = ({ boundRequestCards, cards }: LinkProps) => {
+  const [value, setValue] = useState(0);
+
   useEffect(() => {
     boundRequestCards();
   }, [boundRequestCards]);
@@ -50,9 +45,9 @@ const GiftCardSelect = ({ boundRequestCards, cards }: LinkProps) => {
       <Select
         labelId="gift-cards-label"
         id="gift-cards"
-        value={1}
+        value={value}
         label="Gift Cards"
-        // onChange={handleChange}
+        onChange={(e) => setValue(Number(e.target.value))}
       >
         {cards.map((c) => (
           <MenuItem style={{ display: "flex" }} key={c.id} value={c.id}>
