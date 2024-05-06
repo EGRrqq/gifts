@@ -5,47 +5,30 @@ import { connect } from "react-redux";
 import { IGiftCard } from "../redux/giftCard/model/types";
 import { boundRequestCards } from "../redux/giftCard/actions";
 import GiftCard from "./GiftCard";
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  FormHelperText,
-  useTheme,
-} from "@mui/material";
-import { SelectInputProps } from "@mui/material/Select/SelectInput";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import {
   LinkProps,
   createMapDispatchToProps,
   createMapStateToProps,
 } from "../helpers/reduxToProps";
-
-interface Props {
-  value: string;
-  name: string;
-  onChange: SelectInputProps<string>["onChange"];
-  onBlur: SelectInputProps<string>["onBlur"];
-  error: SelectInputProps<string>["error"];
-  helperText?: boolean | string;
-}
+import SaleFormHelperText from "./SaleFormHelperText";
+import { IFormikProps } from "../types";
+import { useField } from "formik";
 
 const mapStateToProps = createMapStateToProps<IGiftCard>(
   (state) => state.giftCard.cards
 );
 const mapDispatchToProps = createMapDispatchToProps(boundRequestCards);
-type GiftCard = LinkProps<IGiftCard, typeof boundRequestCards> & Props;
+type GiftCard = LinkProps<IGiftCard, typeof boundRequestCards> & IFormikProps;
 
 const GiftCardSelect = ({
   boundRequestData,
   data,
-  value,
-  name,
-  onChange,
-  onBlur,
-  error,
-  helperText,
+  id,
+  label,
+  ...props
 }: GiftCard) => {
-  const theme = useTheme();
+  const [field, meta] = useField(id);
 
   useEffect(() => {
     boundRequestData();
@@ -53,16 +36,14 @@ const GiftCardSelect = ({
 
   return (
     <FormControl fullWidth>
-      <InputLabel id="gift-cards-label">Gift Cards</InputLabel>
+      <InputLabel id={`${id}-label`}>{label}</InputLabel>
       <Select
-        labelId="gift-cards-label"
-        id={name}
-        label="Gift Cards"
-        value={value}
-        name={name}
-        onChange={onChange}
-        onBlur={onBlur}
-        error={error}
+        labelId={`${id}-label`}
+        id={id}
+        label={label}
+        error={meta.touched && Boolean(meta.error)}
+        {...field}
+        {...props}
       >
         {data.map((c) => (
           <MenuItem style={{ display: "flex" }} key={c.id} value={c.id}>
@@ -70,11 +51,7 @@ const GiftCardSelect = ({
           </MenuItem>
         ))}
       </Select>
-      {helperText && (
-        <FormHelperText style={{ color: theme.palette.error.main }}>
-          {helperText}
-        </FormHelperText>
-      )}
+      <SaleFormHelperText helperText={meta.touched && meta.error} />
     </FormControl>
   );
 };

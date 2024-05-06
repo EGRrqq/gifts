@@ -1,41 +1,38 @@
-import GiftCardSelect from "./GiftCardSelect";
-import { Button } from "@mui/material";
-import { useFormik } from "formik";
+import { Formik, Form } from "formik";
 import * as yup from "yup";
+import FormikTextField from "./FormikTextField";
+import FormikSelect from "./GiftCardSelect";
 
 const validationSchema = yup.object().shape({
-  giftCard: yup.number().required("Please select a gift card"),
+  name: yup.string().required("Name is required"),
+  giftCard: yup.number().required("Gift Card is required"),
+  amount: yup.number().required("Amount is required"),
 });
 
 const SaleForm = () => {
-  const formik = useFormik({
-    initialValues: {
-      giftCard: "",
-    },
-    validationSchema,
-    onSubmit: (values, { setSubmitting }) => {
-      alert(JSON.stringify(values));
-      // onSubmit(values);
-      setSubmitting(false);
-    },
-  });
-
   return (
-    <div>
-      <form onSubmit={formik.handleSubmit}>
-        <GiftCardSelect
-          name="giftCard"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.giftCard}
-          error={formik.touched.giftCard && Boolean(formik.errors.giftCard)}
-          helperText={formik.touched.giftCard && formik.errors.giftCard}
-        />
-        <Button color="primary" variant="contained" fullWidth type="submit">
-          Submit
-        </Button>
-      </form>
-    </div>
+    <Formik
+      initialValues={{
+        giftCard: "",
+        name: "",
+        amount: 0,
+      }}
+      validationSchema={validationSchema}
+      onSubmit={(values, { setSubmitting }) => {
+        alert(JSON.stringify(values));
+        // onSubmit(values);
+        setSubmitting(false);
+      }}
+    >
+      {(formik) => (
+        <Form>
+          <FormikTextField id="name" label="Name" />
+          <FormikSelect id="giftCard" label="Gift Card" />
+          <FormikTextField id="amount" label="Amount" type="number" />
+          <button type="submit">Submit</button>
+        </Form>
+      )}
+    </Formik>
   );
 };
 
