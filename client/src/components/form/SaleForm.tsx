@@ -1,7 +1,7 @@
 import { Formik, Form } from "formik";
 import * as yup from "yup";
-import FormikTextField from "./FormikTextField";
-import GiftCardSelect from "./GiftCardSelect";
+import FormikTextField from "./solid/FormikTextField";
+import GiftCardSelect from "./composed/GiftCardSelect";
 
 const validationSchema = yup.object().shape({
   name: yup.string().required("Name is required"),

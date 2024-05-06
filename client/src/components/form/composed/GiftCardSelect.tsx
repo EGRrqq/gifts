@@ -2,16 +2,16 @@ import { useEffect } from "react";
 
 import { connect } from "react-redux";
 
-import { IGiftCard } from "../redux/giftCard/model/types";
-import { boundRequestCards } from "../redux/giftCard/actions";
-import GiftCard from "./models/GiftCard";
+import { IGiftCard } from "../../../redux/giftCard/model/types";
+import { boundRequestCards } from "../../../redux/giftCard/actions";
+import GiftCard from "../../models/GiftCard";
 import {
   LinkProps,
   createMapDispatchToProps,
   createMapStateToProps,
-} from "../helpers/reduxToProps";
-import { IFormikProps } from "../types";
-import FormikSelect from "./FormikSelect";
+} from "../../../helpers/reduxToProps";
+import { IFormikProps } from "../../../types";
+import FormikSelect from "../solid/FormikSelect";
 import { MenuItem } from "@mui/material";
 
 const mapStateToProps = createMapStateToProps<IGiftCard>(

@@ -1,6 +1,6 @@
 import { TextField, TextFieldProps } from "@mui/material";
 import { useField } from "formik";
-import { IFormikProps } from "../types";
+import { IFormikProps } from "../../../types";
 
 const FormikTextField = ({
   id,

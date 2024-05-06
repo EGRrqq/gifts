@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, Select } from "@mui/material";
 
 import FieldHelperText from "./FieldHelperText";
-import { IFormikProps } from "../types";
+import { IFormikProps } from "../../../types";
 import { useField } from "formik";
 import { ReactNode } from "react";
 

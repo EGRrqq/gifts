@@ -1,4 +1,4 @@
-import SaleForm from "./components/SaleForm";
+import SaleForm from "./components/form";
 import Sale from "./components/models/Sale";
 
 const App = () => {
