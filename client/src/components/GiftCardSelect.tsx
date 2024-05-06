@@ -56,7 +56,7 @@ const GiftCardSelect = ({
       <InputLabel id="gift-cards-label">Gift Cards</InputLabel>
       <Select
         labelId="gift-cards-label"
-        id="gift-cards"
+        id={name}
         label="Gift Cards"
         value={value}
         name={name}
