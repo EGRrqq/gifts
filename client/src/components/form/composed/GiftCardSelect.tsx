@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import { IGiftCard } from "../../../redux/giftCard/model/types";
 import { boundRequestCards } from "../../../redux/giftCard/actions";
-import GiftCard from "../../models/GiftCard";
+import GiftCard from "../models/GiftCard";
 import {
   LinkProps,
   createMapDispatchToProps,

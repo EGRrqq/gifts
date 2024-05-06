@@ -1,5 +1,5 @@
 import SaleForm from "./components/form";
-import Sale from "./components/models/Sale";
+import Sale from "./components/table/models/Sale";
 
 const App = () => {
   return (

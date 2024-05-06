@@ -6,7 +6,8 @@ import GiftCardSelect from "./composed/GiftCardSelect";
 const validationSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
   giftCard: yup.number().required("Gift Card is required"),
-  amount: yup.number().required("Amount is required"),
+  numberOfGifts: yup.number().required("Number of Gifts is required"),
+  daysToClaim: yup.number().required("Days to Claim is required"),
 });
 
 const SaleForm = () => {
@@ -28,7 +29,16 @@ const SaleForm = () => {
         <Form>
           <FormikTextField id="name" label="Name" />
           <GiftCardSelect id="giftCard" label="Gift Card" />
-          <FormikTextField id="amount" label="Amount" type="number" />
+          <FormikTextField
+            id="numberOfGifts"
+            label="Number of Gifts"
+            type="number"
+          />
+          <FormikTextField
+            id="daysToClaim"
+            label="Days to Claim"
+            type="number"
+          />
           <button type="submit">Submit</button>
         </Form>
       )}
