@@ -1,11 +1,8 @@
 import { useEffect } from "react";
 
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { ThunkDispatch } from "redux-thunk";
 
 import { IGiftCard } from "../redux/giftCard/model/types";
-import { AppActions, AppState } from "../redux/store";
 import { boundRequestCards } from "../redux/giftCard/actions";
 import GiftCard from "./GiftCard";
 import {
@@ -17,6 +14,11 @@ import {
   useTheme,
 } from "@mui/material";
 import { SelectInputProps } from "@mui/material/Select/SelectInput";
+import {
+  LinkProps,
+  createMapDispatchToProps,
+  createMapStateToProps,
+} from "../helpers/reduxToProps";
 
 interface Props {
   value: string;
@@ -27,41 +29,27 @@ interface Props {
   helperText?: boolean | string;
 }
 
-interface LinkStateProps {
-  cards: IGiftCard[];
-}
-
-interface LinkDispatchProps {
-  boundRequestCards: () => void;
-}
-
-type LinkProps = Props & LinkStateProps & LinkDispatchProps;
-
-const mapStateToProps = (state: AppState): LinkStateProps => ({
-  cards: state.giftCard.cards,
-});
-
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<AppState, void, AppActions>
-) => ({
-  boundRequestCards: bindActionCreators(boundRequestCards, dispatch),
-});
+const mapStateToProps = createMapStateToProps<IGiftCard>(
+  (state) => state.giftCard.cards
+);
+const mapDispatchToProps = createMapDispatchToProps(boundRequestCards);
+type GiftCard = LinkProps<IGiftCard, typeof boundRequestCards> & Props;
 
 const GiftCardSelect = ({
-  boundRequestCards,
-  cards,
+  boundRequestData,
+  data,
   value,
   name,
   onChange,
   onBlur,
   error,
   helperText,
-}: LinkProps) => {
+}: GiftCard) => {
   const theme = useTheme();
 
   useEffect(() => {
-    boundRequestCards();
-  }, [boundRequestCards]);
+    boundRequestData();
+  }, [boundRequestData]);
 
   return (
     <FormControl fullWidth>
@@ -76,7 +64,7 @@ const GiftCardSelect = ({
         onBlur={onBlur}
         error={error}
       >
-        {cards.map((c) => (
+        {data.map((c) => (
           <MenuItem style={{ display: "flex" }} key={c.id} value={c.id}>
             <GiftCard card={c} />
           </MenuItem>
