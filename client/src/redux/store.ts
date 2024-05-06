@@ -3,6 +3,7 @@ import thunk, { ThunkMiddleware } from "redux-thunk";
 import giftCardReducer from "./giftCard/reducer";
 import saleReducer from "./sale/reducer";
 import { GiftCardActionTypes } from "./giftCard/model/types";
+import { SaleActionTypes } from "./sale/model/types";
 
 const rootReducer = combineReducers({
   giftCard: giftCardReducer,
@@ -10,7 +11,7 @@ const rootReducer = combineReducers({
 });
 
 // use pipe for AppActions when add a sales action types
-export type AppActions = GiftCardActionTypes;
+export type AppActions = GiftCardActionTypes | SaleActionTypes;
 export type AppState = ReturnType<typeof rootReducer>;
 
 const store = legacy_createStore(
