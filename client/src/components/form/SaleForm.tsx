@@ -2,12 +2,15 @@ import { Formik, Form } from "formik";
 import * as yup from "yup";
 import FormikTextField from "./solid/FormikTextField";
 import GiftCardSelect from "./composed/GiftCardSelect";
+import { Button } from "@mui/material";
 
 const validationSchema = yup.object().shape({
-  name: yup.string().required("Name is required"),
-  giftCard: yup.number().required("Gift Card is required"),
-  numberOfGifts: yup.number().required("Number of Gifts is required"),
-  daysToClaim: yup.number().required("Days to Claim is required"),
+  name: yup.string().required(),
+  giftCard: yup.number().required(),
+  numberOfGifts: yup.number().positive().required(),
+  daysToClaim: yup.number().positive().required(),
+  description: yup.string().required(),
+  "card-numbers": yup.string().required(),
 });
 
 const SaleForm = () => {
@@ -17,6 +20,9 @@ const SaleForm = () => {
         giftCard: "",
         name: "",
         amount: 0,
+        daysToClaim: 0,
+        description: "",
+        "card-numbers": "",
       }}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
@@ -39,7 +45,24 @@ const SaleForm = () => {
             label="Days to Claim"
             type="number"
           />
-          <button type="submit">Submit</button>
+          <FormikTextField
+            id="description"
+            label="Description"
+            multiline
+            minRows={2}
+            maxRows={6}
+          />
+          <FormikTextField
+            id="card-numbers"
+            label="Card Numbers"
+            multiline
+            minRows={2}
+            maxRows={6}
+          />
+
+          <Button variant="contained" type="submit">
+            Submit
+          </Button>
         </Form>
       )}
     </Formik>
