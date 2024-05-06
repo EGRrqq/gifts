@@ -1,7 +1,7 @@
 import { Formik, Form } from "formik";
 import * as yup from "yup";
 import FormikTextField from "./FormikTextField";
-import FormikSelect from "./GiftCardSelect";
+import GiftCardSelect from "./GiftCardSelect";
 
 const validationSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -24,10 +24,10 @@ const SaleForm = () => {
         setSubmitting(false);
       }}
     >
-      {(formik) => (
+      {() => (
         <Form>
           <FormikTextField id="name" label="Name" />
-          <FormikSelect id="giftCard" label="Gift Card" />
+          <GiftCardSelect id="giftCard" label="Gift Card" />
           <FormikTextField id="amount" label="Amount" type="number" />
           <button type="submit">Submit</button>
         </Form>
