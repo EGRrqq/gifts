@@ -9,8 +9,12 @@ const validationSchema = yup.object().shape({
   giftCard: yup.number().required(),
   numberOfGifts: yup.number().positive().required(),
   daysToClaim: yup.number().positive().required(),
-  description: yup.string().required(),
-  "card-numbers": yup.string().required(),
+  description: yup.string().max(500).required(),
+  "card-numbers": yup
+    .string()
+    .matches(/^[0-9,]+$/, "Card numbers should only contain numbers and commas")
+    .max(5000)
+    .required(),
 });
 
 const SaleForm = () => {
