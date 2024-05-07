@@ -1,13 +1,13 @@
 import { ThunkDispatch } from "redux-thunk";
 import { AppActions, AppState } from "../redux/store";
-import { bindActionCreators } from "redux";
+import { AnyAction, bindActionCreators, Dispatch } from "redux";
 
 interface LinkStateProps<T> {
   data: T[];
 }
 
 interface LinkDispatchProps<A> {
-  boundRequestData: () => A;
+  boundRequestData: () => (dispatch: Dispatch<AnyAction>) => A;
 }
 
 export type LinkProps<T, A> = LinkStateProps<T> & LinkDispatchProps<A>;
