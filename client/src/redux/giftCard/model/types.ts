@@ -1,27 +1,3 @@
-import * as GIFTCARD from "./actions";
-
-export interface IGiftCard {
-  id: number;
-  name: string;
-  remaining_quantity: number;
-  expiration_date: string;
-  denomination: number;
-}
-
-export interface IGiftCardAsync {
-  loading: boolean;
-  cards: IGiftCard[];
-  error: string;
-}
-
-interface FetchRequest extends IGiftCardAsync {
-  type: typeof GIFTCARD.FETCH_REQUEST;
-}
-interface FetchSuccess extends IGiftCardAsync {
-  type: typeof GIFTCARD.FETCH_SUCCESS;
-}
-interface FetchFailure extends IGiftCardAsync {
-  type: typeof GIFTCARD.FETCH_FAILURE;
-}
-
-export type GiftCardActionTypes = FetchFailure | FetchRequest | FetchSuccess;
+export const FETCH_REQUEST = "FETCH_GIFTCARD_REQUEST";
+export const FETCH_SUCCESS = "FETCH_GIFTCARD_SUCCESS";
+export const FETCH_FAILURE = "FETCH_GIFTCARD_FAILURE";

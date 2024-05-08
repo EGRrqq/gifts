@@ -1,6 +1,7 @@
-import * as GIFTCARD from "./model/actions";
+import * as GIFTCARD from "./model/types";
 
-import { IGiftCardAsync, GiftCardActionTypes } from "./model/types";
+import { IGiftCardAsync } from "./model/interfaces";
+import { GiftCardActionTypes } from "./model/actionTypes";
 
 const defaultState: IGiftCardAsync = {
   loading: false,

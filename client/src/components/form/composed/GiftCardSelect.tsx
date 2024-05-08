@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { connect } from "react-redux";
 
-import { IGiftCard } from "../../../redux/giftCard/model/types";
+import { IGiftCard } from "../../../redux/giftCard/model/actionTypes";
 import { boundRequestCards } from "../../../redux/giftCard/actions";
 import GiftCard from "../models/GiftCard";
 import {
