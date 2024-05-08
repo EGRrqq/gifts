@@ -1,1 +1,1 @@
-export { default } from "./FormContent";
+export * as GiftCardSelect from "./GiftCardSelect";

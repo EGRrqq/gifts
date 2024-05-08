@@ -10,7 +10,7 @@ interface IGiftCardProps {
   card: IGiftCard;
 }
 
-export default function GiftCard({ card }: IGiftCardProps) {
+export function GiftCard({ card }: IGiftCardProps) {
   return (
     <Card
       sx={{

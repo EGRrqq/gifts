@@ -1,1 +1,1 @@
-export * as GiftCard from "./GiftCard";
+export { GiftCard } from "./GiftCard";

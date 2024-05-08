@@ -2,7 +2,7 @@ import { TextField, TextFieldProps } from "@mui/material";
 import { useField } from "formik";
 import { IFormikProps } from "../../../types";
 
-const FormikTextField = ({
+export const FormikTextField = ({
   id,
   label,
   ...props
@@ -21,4 +21,3 @@ const FormikTextField = ({
     />
   );
 };
-export default FormikTextField;

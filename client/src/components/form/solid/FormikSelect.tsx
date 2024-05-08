@@ -1,6 +1,6 @@
 import { FormControl, InputLabel, Select } from "@mui/material";
 
-import FieldHelperText from "./FieldHelperText";
+import { FieldHelperText } from "./FieldHelperText";
 import { IFormikProps } from "../../../types";
 import { useField } from "formik";
 import { ReactNode } from "react";
@@ -9,7 +9,7 @@ interface IProps extends IFormikProps {
   data: ReactNode;
 }
 
-const FormikSelect = ({ data, id, label, ...props }: IProps) => {
+export const FormikSelect = ({ data, id, label, ...props }: IProps) => {
   const [field, meta] = useField(id);
 
   return (
@@ -29,5 +29,3 @@ const FormikSelect = ({ data, id, label, ...props }: IProps) => {
     </FormControl>
   );
 };
-
-export default FormikSelect;

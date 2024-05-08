@@ -1,3 +1,3 @@
-export * as FormikTextField from "./FormikTextField";
-export * as FormikSelect from "./FormikSelect";
-export * as FieldHelperText from "./FieldHelperText";
+export { FormikTextField } from "./FormikTextField";
+export { FormikSelect } from "./FormikSelect";
+export { FieldHelperText } from "./FieldHelperText";

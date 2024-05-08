@@ -3,14 +3,14 @@ import { useEffect } from "react";
 import { connect } from "react-redux";
 
 import { boundRequestCards } from "../../../redux/giftCard/actions";
-import GiftCard from "../models/GiftCard";
+import { GiftCard } from "../models/GiftCard";
 import {
   LinkProps,
   createMapDispatchToProps,
   createMapStateToProps,
 } from "../../../helpers/reduxToProps";
 import { IFormikProps } from "../../../types";
-import FormikSelect from "../solid/FormikSelect";
+import { FormikSelect } from "../solid/FormikSelect";
 import { MenuItem } from "@mui/material";
 import { IGiftCard } from "../../../redux/giftCard/model/interfaces";
 

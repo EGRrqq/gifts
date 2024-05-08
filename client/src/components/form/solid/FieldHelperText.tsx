@@ -4,7 +4,7 @@ interface IProps {
   helperText?: boolean | string;
 }
 
-const SaleFormHelperText = ({ helperText }: IProps) => {
+export const FieldHelperText = ({ helperText }: IProps) => {
   const theme = useTheme();
 
   return (
@@ -17,5 +17,3 @@ const SaleFormHelperText = ({ helperText }: IProps) => {
     </>
   );
 };
-
-export default SaleFormHelperText;
