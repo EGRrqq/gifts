@@ -4,13 +4,13 @@ import { useEffect } from "react";
 
 import { connect } from "react-redux";
 
+import { ISale } from "../../../redux/sale/model/types";
 import { boundRequestSales } from "../../../redux/sale/actions";
 import {
   LinkProps,
   createMapDispatchToProps,
   createMapStateToProps,
 } from "../../../helpers/reduxToProps";
-import { ISale } from "../../../redux/sale/model/interfaces";
 
 const mapStateToProps = createMapStateToProps<ISale>(
   (state) => state.sale.sales

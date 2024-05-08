@@ -2,9 +2,9 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import { IGiftCard } from "../../../redux/giftCard/model/actionTypes";
 import { Divider, Stack } from "@mui/material";
 import { formatDate } from "../../../helpers";
-import { IGiftCard } from "../../../redux/giftCard/model/interfaces";
 
 interface IGiftCardProps {
   card: IGiftCard;
