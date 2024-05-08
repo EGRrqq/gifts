@@ -1,6 +1,6 @@
-import * as SALE from "./model/actions";
-
-import { ISaleAsync, SaleActionTypes } from "./model/types";
+import { SaleActionTypes } from "./model/actionTypes";
+import { ISaleAsync } from "./model/interfaces";
+import * as SALE from "./model/types";
 
 const defaultState: ISaleAsync = {
   loading: false,
