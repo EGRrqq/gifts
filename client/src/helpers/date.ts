@@ -9,5 +9,6 @@ export function formatDate(date: string) {
 }
 
 export const dateDiff = (first: number, second: number) => {
-  return Math.round((second - first) / (1000 * 60 * 60 * 24));
+  const daysDiff = Math.round((second - first) / (1000 * 60 * 60 * 24));
+  return Math.abs(daysDiff);
 };
