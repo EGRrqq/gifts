@@ -5,7 +5,7 @@ import { TFormContentProps } from "../../types";
 import { IGiftCard } from "../../redux/giftCard/model/interfaces";
 import { useSelector } from "react-redux";
 import { AppState } from "../../redux/store";
-import { findById } from "../../helpers";
+import { dateDiff, findById } from "../../helpers";
 
 const fields: TFormContentProps = {
   name: { id: "name", label: "Name" },
@@ -41,7 +41,26 @@ const validationSchema = (cards: IGiftCard[]) =>
         }
       })
       .required(),
-    [fields.day_to_claim_gift.id]: yup.number().positive().required(),
+    [fields.day_to_claim_gift.id]: yup
+      .number()
+      .positive()
+      .when([fields.gift_card_id.id], (giftCardId, schema) => {
+        const card = findById(cards, giftCardId[0]);
+        if (card) {
+          const { expiration_date } = card;
+          const daysDiff = dateDiff(
+            new Date(expiration_date).getTime(),
+            Date.now()
+          );
+          const maxDays = daysDiff - 2;
+
+          return schema.max(
+            maxDays,
+            `The value is greater than at least two days before the expiration_date ${maxDays}`
+          );
+        }
+      })
+      .required(),
     [fields.description.id]: yup.string().max(500).required(),
     [fields.card_numbers.id]: yup
       .string()
