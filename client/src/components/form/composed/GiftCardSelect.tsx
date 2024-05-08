@@ -38,8 +38,7 @@ const GiftCardSelect = ({ boundRequestData, data, id, label }: GiftCard) => {
   );
 };
 
-const ConnectedGiftCardSelect = connect(
+export const ConnectedGiftCardSelect = connect(
   mapStateToProps,
   mapDispatchToProps
 )(GiftCardSelect);
-export default ConnectedGiftCardSelect;
