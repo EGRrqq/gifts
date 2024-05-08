@@ -5,6 +5,7 @@ import { TFormContentProps } from "../../types";
 import { IGiftCard } from "../../redux/giftCard/model/interfaces";
 import { useSelector } from "react-redux";
 import { AppState } from "../../redux/store";
+import { findById } from "../../helpers";
 
 const fields: TFormContentProps = {
   name: { id: "name", label: "Name" },
@@ -18,12 +19,18 @@ const fields: TFormContentProps = {
 const validationSchema = (cards: IGiftCard[]) =>
   yup.object().shape({
     [fields.name.id]: yup.string().required(),
-    [fields.gift_card_id.id]: yup.number().required(),
+    [fields.gift_card_id.id]: yup
+      .number()
+      .test("exist", function (id) {
+        const card = findById(cards, id);
+        return Boolean(card);
+      })
+      .required(),
     [fields.number_of_gifts.id]: yup
       .number()
       .positive()
       .when([fields.gift_card_id.id], (giftCardId, schema) => {
-        const card = cards.find((c) => c.id === giftCardId[0]);
+        const card = findById(cards, giftCardId[0]);
         if (card) {
           const { remaining_quantity } = card;
 
