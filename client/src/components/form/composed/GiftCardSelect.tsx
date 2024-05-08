@@ -12,13 +12,16 @@ import { IFormikProps } from "../../../types";
 import { FormikSelect } from "../solid/FormikSelect";
 import { MenuItem } from "@mui/material";
 import { IGiftCard } from "../../../redux/giftCard/model/interfaces";
-import { boundGetAll } from "../../../redux/giftCard/actions/boundGetAll";
+import * as giftCardActions from "../../../redux/giftCard/actions";
 
 const mapStateToProps = createMapStateToProps<IGiftCard>(
   (state) => state.giftCard.cards
 );
-const mapDispatchToProps = createMapDispatchToProps(boundGetAll);
-type GiftCard = LinkProps<IGiftCard, typeof boundGetAll> & IFormikProps;
+const mapDispatchToProps = createMapDispatchToProps(
+  giftCardActions.boundGetAll
+);
+type GiftCard = LinkProps<IGiftCard, typeof giftCardActions.boundGetAll> &
+  IFormikProps;
 
 const GiftCardSelect = ({ boundRequestData, data, id, label }: GiftCard) => {
   useEffect(() => {

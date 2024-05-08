@@ -1,11 +1,11 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 
-import * as SALE from "./methods";
-import { getLink } from "../../helpers";
-import { ISale } from "./model/interfaces";
+import * as SALE from "../methods";
+import { getLink } from "../../../helpers";
+import { ISale } from "../model/interfaces";
 
-export const boundRequestSales = () => {
+export const boundGetAll = () => {
   return (dispatch: Dispatch) => {
     dispatch(SALE.getAll.request());
     axios

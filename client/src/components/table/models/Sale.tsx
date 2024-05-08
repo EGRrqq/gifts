@@ -4,19 +4,19 @@ import { useEffect } from "react";
 
 import { connect } from "react-redux";
 
-import { boundRequestSales } from "../../../redux/sale/actions";
 import {
   LinkProps,
   createMapDispatchToProps,
   createMapStateToProps,
 } from "../../../helpers/reduxToProps";
 import { ISale } from "../../../redux/sale/model/interfaces";
+import * as saleActions from "../../../redux/sale/actions";
 
 const mapStateToProps = createMapStateToProps<ISale>(
   (state) => state.sale.sales
 );
-const mapDispatchToProps = createMapDispatchToProps(boundRequestSales);
-type SaleProps = LinkProps<ISale, typeof boundRequestSales>;
+const mapDispatchToProps = createMapDispatchToProps(saleActions.boundGetAll);
+type SaleProps = LinkProps<ISale, typeof saleActions.boundGetAll>;
 
 const Sale = ({ boundRequestData, data }: SaleProps) => {
   useEffect(() => {
