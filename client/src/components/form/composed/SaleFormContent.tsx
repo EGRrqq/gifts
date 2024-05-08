@@ -19,7 +19,7 @@ export const SaleFormContent = ({ fields }: IProps) => {
   } = fields;
 
   return (
-    <Form>
+    <Form style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
       <FormikTextField id={name.id} label={name.label} />
       <GiftCardSelect id={gift_card_id.id} label={gift_card_id.label} />
       <FormikTextField
