@@ -2,7 +2,6 @@ import { useEffect } from "react";
 
 import { connect } from "react-redux";
 
-import { boundRequestCards } from "../../../redux/giftCard/actions";
 import { GiftCard } from "../models/GiftCard";
 import {
   LinkProps,
@@ -13,12 +12,13 @@ import { IFormikProps } from "../../../types";
 import { FormikSelect } from "../solid/FormikSelect";
 import { MenuItem } from "@mui/material";
 import { IGiftCard } from "../../../redux/giftCard/model/interfaces";
+import { boundGetAll } from "../../../redux/giftCard/actions/boundGetAll";
 
 const mapStateToProps = createMapStateToProps<IGiftCard>(
   (state) => state.giftCard.cards
 );
-const mapDispatchToProps = createMapDispatchToProps(boundRequestCards);
-type GiftCard = LinkProps<IGiftCard, typeof boundRequestCards> & IFormikProps;
+const mapDispatchToProps = createMapDispatchToProps(boundGetAll);
+type GiftCard = LinkProps<IGiftCard, typeof boundGetAll> & IFormikProps;
 
 const GiftCardSelect = ({ boundRequestData, data, id, label }: GiftCard) => {
   useEffect(() => {

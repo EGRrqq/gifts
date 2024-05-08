@@ -1,11 +1,11 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 
-import * as GIFTCARD from "./methods";
-import { IGiftCard } from "./model/interfaces";
-import { getLink } from "../../helpers";
+import * as GIFTCARD from "../methods";
+import { IGiftCard } from "../model/interfaces";
+import { getLink } from "../../../helpers";
 
-export const boundRequestCards = () => {
+export const boundGetAll = () => {
   return (dispatch: Dispatch) => {
     dispatch(GIFTCARD.getAll.request());
     axios
