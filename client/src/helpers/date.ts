@@ -7,3 +7,7 @@ export function formatDate(date: string) {
 
   return `${day} ${month} ${year}`;
 }
+
+export const dateDiff = (first: number, second: number) => {
+  return Math.round((second - first) / (1000 * 60 * 60 * 24));
+};
