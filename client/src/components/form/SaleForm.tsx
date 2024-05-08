@@ -21,7 +21,7 @@ const validationSchema = (cards: IGiftCard[]) =>
     [fields.name.id]: yup.string().required(),
     [fields.gift_card_id.id]: yup
       .number()
-      .test("exist", function (id) {
+      .test("exist", "Card does not exist", function (id) {
         const card = findById(cards, id);
         return Boolean(card);
       })
