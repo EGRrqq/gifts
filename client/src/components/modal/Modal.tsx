@@ -48,6 +48,7 @@ const BasicModal = () => {
             transform: "translate(-50%, -50%)",
             padding: "1rem",
             border: "solid",
+            minWidth: "50%",
           }}
         />
       </Modal>
