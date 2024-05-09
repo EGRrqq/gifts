@@ -18,5 +18,5 @@ export const invalidate = (message: string): SaleActionTypes => ({
   type: SALE.POST_FAILURE,
   loading: false,
   sales: [],
-  error: message || "Unable to post sales",
+  error: message || "Unable to post sale",
 });
