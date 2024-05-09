@@ -93,9 +93,13 @@ const mapStateToProps = createMapStateToProps<ISale>(
   (state) => state.sale.sales
 );
 const mapDispatchToProps = createMapDispatchToProps(saleActions.boundPostData);
-type ISaleForm = LinkProps<ISale, typeof saleActions>;
+interface IProps {
+  handleClose: () => void;
+  style?: React.CSSProperties;
+}
+type ISaleForm = LinkProps<ISale, typeof saleActions> & IProps;
 
-const SaleForm = ({ boundData }: ISaleForm) => {
+const SaleForm = ({ boundData, handleClose, style }: ISaleForm) => {
   const cards = useSelector<AppState>(
     (state) => state.giftCard.cards
   ) as IGiftCard[];
@@ -104,15 +108,14 @@ const SaleForm = ({ boundData }: ISaleForm) => {
     <Formik
       initialValues={initValues}
       validationSchema={() => validationSchema(cards)}
-      onSubmit={(values: ISale, { setSubmitting }) => {
-        // alert(JSON.stringify(values));
-        // onSubmit(values);
+      onSubmit={(values: ISale, { setSubmitting, resetForm }) => {
         boundData(values);
-        setSubmitting(false);
+        handleClose();
+        resetForm();
       }}
     >
       {() => (
-        <Paper>
+        <Paper style={style}>
           <SaleFormContent fields={fields} />
         </Paper>
       )}
