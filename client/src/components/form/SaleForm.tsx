@@ -13,6 +13,7 @@ import {
 } from "../../helpers/reduxToProps";
 import * as saleActions from "../../redux/sale/actions";
 import { ISale } from "../../redux/sale/model/interfaces";
+import { Paper } from "@mui/material";
 
 const fields: TFormContentProps = {
   name: { id: "name", label: "Name" },
@@ -110,7 +111,11 @@ const SaleForm = ({ boundData }: ISaleForm) => {
         setSubmitting(false);
       }}
     >
-      {() => <SaleFormContent fields={fields} />}
+      {() => (
+        <Paper>
+          <SaleFormContent fields={fields} />
+        </Paper>
+      )}
     </Formik>
   );
 };
