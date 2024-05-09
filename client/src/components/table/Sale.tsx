@@ -61,7 +61,10 @@ const Sale = ({ boundData, data }: SaleProps) => {
                 <IconButton
                   // looks like disable, change colors
                   // move btn in a model such as table row
-                  style={{ backgroundColor: "gray", borderRadius: 0 }}
+                  style={{
+                    backgroundColor: "gray",
+                    borderRadius: 0,
+                  }}
                   aria-label="delete"
                   size="medium"
                 >

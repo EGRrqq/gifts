@@ -32,6 +32,11 @@ const BasicModal = () => {
         style={{
           backgroundColor: "gray",
           borderRadius: 0,
+
+          transform: "translate(-50%, -50%)",
+          position: "fixed",
+          top: "90%",
+          left: "95%",
         }}
         aria-label="delete"
         size="medium"
@@ -47,12 +52,7 @@ const BasicModal = () => {
         />
       </IconButton>
 
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+      <Modal open={open} onClose={handleClose}>
         <SaleForm />
       </Modal>
     </div>
