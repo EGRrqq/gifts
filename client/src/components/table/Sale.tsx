@@ -8,9 +8,9 @@ import {
   LinkProps,
   createMapDispatchToProps,
   createMapStateToProps,
-} from "../../../helpers/reduxToProps";
-import { ISale } from "../../../redux/sale/model/interfaces";
-import * as saleActions from "../../../redux/sale/actions";
+} from "../../helpers/reduxToProps";
+import { ISale } from "../../redux/sale/model/interfaces";
+import * as saleActions from "../../redux/sale/actions";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
