@@ -19,9 +19,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { IconButton } from "@mui/material";
-import RemoveIcon from "@mui/icons-material/Remove";
-import EditIcon from "@mui/icons-material/Edit";
+import { SaleItem } from "./composed";
 
 const mapStateToProps = createMapStateToProps<ISale>(
   (state) => state.sale.sales
@@ -48,53 +46,7 @@ const Sale = ({ boundData, data }: SaleProps) => {
         </TableHead>
         <TableBody>
           {data.map((d) => (
-            <TableRow
-              key={d.id}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell align="center" component="th" scope="row">
-                {d.name}
-              </TableCell>
-              <TableCell align="center"></TableCell>
-              <TableCell align="center"></TableCell>
-              <TableCell align="center">
-                <IconButton
-                  // looks like disable, change colors
-                  // move btn in a model such as table row
-                  style={{
-                    backgroundColor: "gray",
-                    borderRadius: 0,
-                  }}
-                  aria-label="delete"
-                  size="medium"
-                >
-                  <RemoveIcon
-                    style={{
-                      color: "white",
-                      background: "transparent",
-                      borderRadius: 0,
-                    }}
-                    fontSize="inherit"
-                  />
-                </IconButton>
-              </TableCell>
-              <TableCell align="center">
-                <IconButton
-                  style={{ backgroundColor: "gray", borderRadius: 0 }}
-                  aria-label="delete"
-                  size="medium"
-                >
-                  <EditIcon
-                    style={{
-                      color: "white",
-                      background: "transparent",
-                      borderRadius: 0,
-                    }}
-                    fontSize="inherit"
-                  />
-                </IconButton>
-              </TableCell>
-            </TableRow>
+            <SaleItem key={d.id} sale={d} />
           ))}
         </TableBody>
       </Table>

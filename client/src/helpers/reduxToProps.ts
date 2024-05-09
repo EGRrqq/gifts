@@ -11,7 +11,7 @@ interface LinkStateProps<T> {
 }
 
 interface LinkDispatchProps<T, A> {
-  boundData: (dataItem?: T) => (dispatch: Dispatch<AnyAction>) => A;
+  boundData: (dataItem?: T | number) => (dispatch: Dispatch<AnyAction>) => A;
 }
 
 export type LinkProps<T, A> = LinkStateProps<T> & LinkDispatchProps<T, A>;

@@ -33,6 +33,18 @@ const saleReducer = (
     case SALE.POST_FAILURE:
       return { ...state, loading: false, error: action.error };
 
+    // deleteData
+    case SALE.DELETE_REQUEST:
+      return { ...state, loading: true };
+    case SALE.DELETE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        sales: state.sales.filter((s) => s.id !== action.sales[0].id),
+      };
+    case SALE.DELETE_FAILURE:
+      return { ...state, loading: false, error: action.error };
+
     default:
       return state;
   }

@@ -23,10 +23,24 @@ interface PostFailure extends ISaleAsync {
   type: typeof SALE.POST_FAILURE;
 }
 
+// deleteData
+interface DeleteRequest extends ISaleAsync {
+  type: typeof SALE.DELETE_REQUEST;
+}
+interface DeleteSuccess extends ISaleAsync {
+  type: typeof SALE.DELETE_SUCCESS;
+}
+interface DeleteFailure extends ISaleAsync {
+  type: typeof SALE.DELETE_FAILURE;
+}
+
 export type SaleActionTypes =
   | FetchFailure
   | FetchRequest
   | FetchSuccess
   | PostRequest
   | PostSuccess
-  | PostFailure;
+  | PostFailure
+  | DeleteRequest
+  | DeleteSuccess
+  | DeleteFailure;
