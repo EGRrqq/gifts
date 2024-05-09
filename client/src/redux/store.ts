@@ -1,9 +1,9 @@
 import { applyMiddleware, combineReducers, legacy_createStore } from "redux";
 import thunk, { ThunkMiddleware } from "redux-thunk";
 import giftCardReducer from "./giftCard/reducer";
-import saleReducer from "./sale/reducer";
 import { GiftCardActionTypes } from "./giftCard/model/actionTypes";
-import { SaleActionTypes } from "./sale/model/types";
+import saleReducer from "./sale/reducer";
+import { SaleActionTypes } from "./sale/model/actionTypes";
 
 const rootReducer = combineReducers({
   giftCard: giftCardReducer,

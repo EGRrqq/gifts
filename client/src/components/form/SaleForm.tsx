@@ -1,11 +1,15 @@
-import { Formik, Form } from "formik";
+import { Formik } from "formik";
 import * as yup from "yup";
 import SaleFormContent from "./composed";
 import { TFormContentProps } from "../../types";
 import { IGiftCard } from "../../redux/giftCard/model/interfaces";
-import { useSelector } from "react-redux";
-import { AppState } from "../../redux/store";
+import { connect, useSelector } from "react-redux";
+import { AppActions, AppState } from "../../redux/store";
 import { dateDiff, findById } from "../../helpers";
+import * as saleActions from "../../redux/sale/actions";
+import { ThunkDispatch } from "redux-thunk";
+import { bindActionCreators } from "redux";
+import { ISale } from "../../redux/sale/model/interfaces";
 
 const fields: TFormContentProps = {
   name: { id: "name", label: "Name" },
@@ -81,7 +85,33 @@ const initValues = {
   [fields.card_numbers.id]: "",
 };
 
-const SaleForm = () => {
+//
+
+interface Props {}
+
+interface LinkStateProps {
+  sales: ISale[];
+}
+
+interface LinkDispatchProps {
+  boundPostData: (sale: ISale) => void;
+}
+
+type LinkProps = Props & LinkStateProps & LinkDispatchProps;
+
+const mapStateToProps = (state: AppState): LinkStateProps => ({
+  sales: state.sale.sales,
+});
+
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<AppState, void, AppActions>
+) => ({
+  boundPostData: bindActionCreators(saleActions.boundPostData, dispatch),
+});
+
+//
+
+const SaleForm = ({ boundPostData }: LinkProps) => {
   const cards = useSelector<AppState>(
     (state) => state.giftCard.cards
   ) as IGiftCard[];
@@ -91,8 +121,9 @@ const SaleForm = () => {
       initialValues={initValues}
       validationSchema={() => validationSchema(cards)}
       onSubmit={(values, { setSubmitting }) => {
-        alert(JSON.stringify(values));
+        // alert(JSON.stringify(values));
         // onSubmit(values);
+        boundPostData(values);
         setSubmitting(false);
       }}
     >
@@ -101,4 +132,8 @@ const SaleForm = () => {
   );
 };
 
-export default SaleForm;
+const ConnectedSaleForm = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SaleForm);
+export default ConnectedSaleForm;
