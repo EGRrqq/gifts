@@ -5,6 +5,7 @@
   "scripts": {
     "client": "npm run dev --prefix client",
     "server": "npm run server --prefix server",
+    "db-init": "npm run db-init --prefix server",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "dependencies": {

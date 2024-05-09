@@ -6,6 +6,7 @@ sql_files=(
     "giftCards.sql"
     "check_expiration_date_c.sql"
     "check_expiration_date_u.sql"
+    "insertGiftCards.sql"
     "sales.sql"
     "check_card_numbers_c.sql"
     "check_claim_value_c.sql"
