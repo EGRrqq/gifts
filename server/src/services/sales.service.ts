@@ -12,12 +12,13 @@ export async function getAll() {
 export async function create(sale: ISale) {
   const { result } = await promiseQuery(`INSERT INTO sales SET ?`, sale);
 
-  let message = "";
-  result.affectedRows
-    ? (message = "Sale created successfully")
-    : (message = "Error in creating sale");
+  if (!result.affectedRows) {
+    const message = "Error in creating sale";
+    return { message };
+  }
 
-  return { message };
+  sale.id = result.insertId;
+  return sale;
 }
 
 export async function findById(id: number) {

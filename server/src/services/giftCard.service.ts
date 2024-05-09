@@ -15,12 +15,13 @@ export async function create(giftCard: IGiftCard) {
     giftCard
   );
 
-  let message = "";
-  result.affectedRows
-    ? (message = "Gift Card created successfully")
-    : (message = "Error in creating gift card");
+  if (!result.affectedRows) {
+    const message = "Error in creating gift card";
+    return { message };
+  }
 
-  return { message };
+  giftCard.id = result.insertId;
+  return giftCard;
 }
 
 export async function findById(id: number) {
