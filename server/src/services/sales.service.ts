@@ -31,11 +31,12 @@ export async function findById(id: number) {
 }
 
 export async function remove(id: number) {
+  const sale = await findById(id);
   const { result } = await promiseQuery(`DELETE FROM sales WHERE id = ?`, [id]);
 
   validateWithId({ result, id, item: "Sale" });
-  const message = "Sale removed successfully";
-  return { message };
+
+  return sale;
 }
 
 export async function update(id: number, sale: ISale) {
