@@ -16,12 +16,12 @@ const mapStateToProps = createMapStateToProps<ISale>(
   (state) => state.sale.sales
 );
 const mapDispatchToProps = createMapDispatchToProps(saleActions.boundGetAll);
-type SaleProps = LinkProps<ISale, typeof saleActions.boundGetAll>;
+type SaleProps = LinkProps<ISale, typeof saleActions>;
 
-const Sale = ({ boundRequestData, data }: SaleProps) => {
+const Sale = ({ boundData, data }: SaleProps) => {
   useEffect(() => {
-    boundRequestData();
-  }, [boundRequestData]);
+    boundData();
+  }, [boundData]);
 
   return (
     <>

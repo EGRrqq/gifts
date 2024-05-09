@@ -4,11 +4,14 @@ import SaleFormContent from "./composed";
 import { TFormContentProps } from "../../types";
 import { IGiftCard } from "../../redux/giftCard/model/interfaces";
 import { connect, useSelector } from "react-redux";
-import { AppActions, AppState } from "../../redux/store";
+import { AppState } from "../../redux/store";
 import { dateDiff, findById } from "../../helpers";
+import {
+  LinkProps,
+  createMapDispatchToProps,
+  createMapStateToProps,
+} from "../../helpers/reduxToProps";
 import * as saleActions from "../../redux/sale/actions";
-import { ThunkDispatch } from "redux-thunk";
-import { bindActionCreators } from "redux";
 import { ISale } from "../../redux/sale/model/interfaces";
 
 const fields: TFormContentProps = {
@@ -85,33 +88,13 @@ const initValues = {
   [fields.card_numbers.id]: "",
 };
 
-//
+const mapStateToProps = createMapStateToProps<ISale>(
+  (state) => state.sale.sales
+);
+const mapDispatchToProps = createMapDispatchToProps(saleActions.boundPostData);
+type ISaleForm = LinkProps<ISale, typeof saleActions>;
 
-interface Props {}
-
-interface LinkStateProps {
-  sales: ISale[];
-}
-
-interface LinkDispatchProps {
-  boundPostData: (sale: ISale) => void;
-}
-
-type LinkProps = Props & LinkStateProps & LinkDispatchProps;
-
-const mapStateToProps = (state: AppState): LinkStateProps => ({
-  sales: state.sale.sales,
-});
-
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<AppState, void, AppActions>
-) => ({
-  boundPostData: bindActionCreators(saleActions.boundPostData, dispatch),
-});
-
-//
-
-const SaleForm = ({ boundPostData }: LinkProps) => {
+const SaleForm = ({ boundData }: ISaleForm) => {
   const cards = useSelector<AppState>(
     (state) => state.giftCard.cards
   ) as IGiftCard[];
@@ -120,10 +103,10 @@ const SaleForm = ({ boundPostData }: LinkProps) => {
     <Formik
       initialValues={initValues}
       validationSchema={() => validationSchema(cards)}
-      onSubmit={(values, { setSubmitting }) => {
+      onSubmit={(values: ISale, { setSubmitting }) => {
         // alert(JSON.stringify(values));
         // onSubmit(values);
-        boundPostData(values);
+        boundData(values);
         setSubmitting(false);
       }}
     >

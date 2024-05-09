@@ -23,10 +23,10 @@ const mapDispatchToProps = createMapDispatchToProps(
 type GiftCard = LinkProps<IGiftCard, typeof giftCardActions.boundGetAll> &
   IFormikProps;
 
-const GiftCardSelect = ({ boundRequestData, data, id, label }: GiftCard) => {
+const GiftCardSelect = ({ boundData, data, id, label }: GiftCard) => {
   useEffect(() => {
-    boundRequestData();
-  }, [boundRequestData]);
+    boundData();
+  }, [boundData]);
 
   return (
     <FormikSelect
