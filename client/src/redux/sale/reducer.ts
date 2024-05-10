@@ -45,6 +45,22 @@ const saleReducer = (
     case SALE.DELETE_FAILURE:
       return { ...state, loading: false, error: action.error };
 
+    // updateData
+    case SALE.UPDATE_REQUEST:
+      return { ...state, loading: true };
+    case SALE.UPDATE_SUCCESS: {
+      const index = state.sales.findIndex((s) => s.id === action.sales[0].id);
+      state.sales[index] = action.sales[0];
+
+      return {
+        ...state,
+        loading: false,
+        sales: [...state.sales],
+      };
+    }
+    case SALE.UPDATE_FAILURE:
+      return { ...state, loading: false, error: action.error };
+
     default:
       return state;
   }
