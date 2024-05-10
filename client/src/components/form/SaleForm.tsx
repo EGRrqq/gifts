@@ -108,7 +108,7 @@ const SaleForm = ({ boundData, handleClose, style }: ISaleForm) => {
     <Formik
       initialValues={initValues}
       validationSchema={() => validationSchema(cards)}
-      onSubmit={(values: ISale, { setSubmitting, resetForm }) => {
+      onSubmit={(values: ISale, { resetForm }) => {
         boundData(values);
         handleClose();
         resetForm();

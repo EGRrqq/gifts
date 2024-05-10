@@ -10,7 +10,7 @@ const BasicModal = () => {
   const handleClose = () => setOpen(false);
 
   return (
-    <div>
+    <article>
       <IconButton
         // looks like disable, change colors
         // move btn in a model such as table row
@@ -51,7 +51,7 @@ const BasicModal = () => {
           }}
         />
       </Modal>
-    </div>
+    </article>
   );
 };
 
