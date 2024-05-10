@@ -54,6 +54,7 @@ export async function update(id: number, sale: ISale) {
   );
 
   validateWithId({ result, id, item: "Sale" });
-  const message = "Sale updated successfully";
-  return { message };
+
+  sale.id = id;
+  return sale;
 }
