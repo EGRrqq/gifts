@@ -2,14 +2,16 @@ import { TExpressParams } from "./TExpressParams";
 import * as sale from "../services/sales.service";
 import { Sale } from "../models";
 
-export const get: TExpressParams = async (_, res, next) => {
+export const getWithSearch: TExpressParams = async (req, res, next) => {
   try {
-    const data = await sale.getAll();
+    const q = req.query.name ? req.query.name : "";
+
+    const data = await sale.getWithSearch(q.toString());
     res.json(data);
   } catch (err) {
     const message = "Error while getting sales";
 
-    res.status(500).send({
+    res.status(500).json({
       message: err.message || message,
     });
     next(err);
@@ -36,6 +38,7 @@ export const getSingle: TExpressParams = async (req, res, next) => {
     res.json(data);
   } catch (err) {
     const message = `Error while getting Sale with id ${req.params.id}.`;
+
     res.status(err.statusCode || 500).json({
       message: err.message || message,
     });

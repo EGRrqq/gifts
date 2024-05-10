@@ -2,8 +2,11 @@ import { promiseQuery } from "./db.service";
 import { validateRows, validateWithId } from "../utils/helpers.util";
 import { ISale } from "../models";
 
-export async function getAll() {
-  const { result } = await promiseQuery("select * from sales");
+export async function getWithSearch(query: string) {
+  const { result } = await promiseQuery(
+    "SELECT * FROM sales WHERE name LIKE ?",
+    [`%${query}%`]
+  );
   const rows = validateRows(result);
 
   return rows;
