@@ -1,6 +1,6 @@
-import { IconButton, TableCell, TableRow } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
+import { TableCell, TableRow } from "@mui/material";
 import RemoveBtn from "./RemoveBtn";
+import EditBtn from "./EditBtn";
 import { ISale } from "../../../redux/sale/model/interfaces";
 
 interface IProps {
@@ -19,20 +19,7 @@ const SaleItem = ({ sale }: IProps) => {
         <RemoveBtn sale={sale} />
       </TableCell>
       <TableCell align="center">
-        <IconButton
-          style={{ backgroundColor: "gray", borderRadius: 0 }}
-          aria-label="delete"
-          size="medium"
-        >
-          <EditIcon
-            style={{
-              color: "white",
-              background: "transparent",
-              borderRadius: 0,
-            }}
-            fontSize="inherit"
-          />
-        </IconButton>
+        <EditBtn sale={sale} />
       </TableCell>
     </TableRow>
   );
