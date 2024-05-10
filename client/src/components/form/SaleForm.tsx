@@ -80,13 +80,15 @@ const validationSchema = (cards: IGiftCard[]) =>
       .required(),
   });
 
-const initValues = {
-  [fields.name.id]: "",
-  [fields.gift_card_id.id]: 1,
-  [fields.number_of_gifts.id]: 1,
-  [fields.day_to_claim_gift.id]: 1,
-  [fields.description.id]: "",
-  [fields.card_numbers.id]: "",
+const initValues = (sale?: ISale) => {
+  return {
+    [fields.name.id]: sale?.name || "",
+    [fields.gift_card_id.id]: sale?.gift_card_id || 1,
+    [fields.number_of_gifts.id]: sale?.number_of_gifts || 1,
+    [fields.day_to_claim_gift.id]: sale?.day_to_claim_gift || 1,
+    [fields.description.id]: sale?.description || "",
+    [fields.card_numbers.id]: sale?.card_numbers || "",
+  };
 };
 
 const mapStateToProps = createMapStateToProps<ISale>(
@@ -96,17 +98,18 @@ const mapDispatchToProps = createMapDispatchToProps(saleActions.boundPostData);
 interface IProps {
   handleClose: () => void;
   style?: React.CSSProperties;
+  sale?: ISale;
 }
 type ISaleForm = LinkProps<ISale, typeof saleActions> & IProps;
 
-const SaleForm = ({ boundData, handleClose, style }: ISaleForm) => {
+const SaleForm = ({ boundData, handleClose, style, sale }: ISaleForm) => {
   const cards = useSelector<AppState>(
     (state) => state.giftCard.cards
   ) as IGiftCard[];
 
   return (
     <Formik
-      initialValues={initValues}
+      initialValues={initValues(sale)}
       validationSchema={() => validationSchema(cards)}
       onSubmit={(values: ISale, { resetForm }) => {
         boundData(values);

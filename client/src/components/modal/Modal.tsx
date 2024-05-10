@@ -3,8 +3,13 @@ import { useState } from "react";
 import SaleForm from "../form";
 import { IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import { ISale } from "../../redux/sale/model/interfaces";
 
-const BasicModal = () => {
+interface IProps {
+  sale?: ISale;
+}
+
+const BasicModal = ({ sale }: IProps) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -49,6 +54,7 @@ const BasicModal = () => {
             border: "solid",
             minWidth: "50%",
           }}
+          sale={sale}
         />
       </Modal>
     </article>
