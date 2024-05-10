@@ -1,4 +1,3 @@
-import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useState } from "react";
 import SaleForm from "../form";
