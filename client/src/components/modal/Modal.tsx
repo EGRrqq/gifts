@@ -1,15 +1,24 @@
 import Modal from "@mui/material/Modal";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import SaleForm from "../form";
 import { IconButton } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 import { ISale } from "../../redux/sale/model/interfaces";
 
 interface IProps {
+  icon: ReactNode;
+  "aria-label": string;
+  style?: React.CSSProperties;
   sale?: ISale;
+  action: (data: ISale) => void;
 }
 
-const BasicModal = ({ sale }: IProps) => {
+const BasicModal = ({
+  sale,
+  icon,
+  style,
+  "aria-label": ariaLabel,
+  action,
+}: IProps) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -19,31 +28,17 @@ const BasicModal = ({ sale }: IProps) => {
       <IconButton
         // looks like disable, change colors
         // move btn in a model such as table row
-        style={{
-          backgroundColor: "gray",
-          borderRadius: 0,
-
-          transform: "translate(-50%, -50%)",
-          position: "fixed",
-          top: "90%",
-          left: "95%",
-        }}
-        aria-label="delete"
+        style={style}
+        aria-label={ariaLabel}
         size="medium"
         onClick={handleOpen}
       >
-        <AddIcon
-          style={{
-            color: "white",
-            background: "transparent",
-            borderRadius: 0,
-          }}
-          fontSize="inherit"
-        />
+        {icon}
       </IconButton>
 
       <Modal open={open} onClose={handleClose}>
         <SaleForm
+          action={action}
           handleClose={handleClose}
           style={{
             position: "absolute",

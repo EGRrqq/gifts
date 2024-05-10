@@ -3,15 +3,10 @@ import * as yup from "yup";
 import SaleFormContent from "./composed";
 import { TFormContentProps } from "../../types";
 import { IGiftCard } from "../../redux/giftCard/model/interfaces";
-import { connect, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { AppState } from "../../redux/store";
 import { dateDiff, findById } from "../../helpers";
-import {
-  LinkProps,
-  createMapDispatchToProps,
-  createMapStateToProps,
-} from "../../helpers/reduxToProps";
-import * as saleActions from "../../redux/sale/actions";
+
 import { ISale } from "../../redux/sale/model/interfaces";
 import { Paper } from "@mui/material";
 
@@ -91,18 +86,14 @@ const initValues = (sale?: ISale) => {
   };
 };
 
-const mapStateToProps = createMapStateToProps<ISale>(
-  (state) => state.sale.sales
-);
-const mapDispatchToProps = createMapDispatchToProps(saleActions.boundPostData);
 interface IProps {
+  action: (data: ISale) => void;
   handleClose: () => void;
   style?: React.CSSProperties;
   sale?: ISale;
 }
-type ISaleForm = LinkProps<ISale, typeof saleActions> & IProps;
 
-const SaleForm = ({ boundData, handleClose, style, sale }: ISaleForm) => {
+const SaleForm = ({ handleClose, style, sale, action }: IProps) => {
   const cards = useSelector<AppState>(
     (state) => state.giftCard.cards
   ) as IGiftCard[];
@@ -112,9 +103,11 @@ const SaleForm = ({ boundData, handleClose, style, sale }: ISaleForm) => {
       initialValues={initValues(sale)}
       validationSchema={() => validationSchema(cards)}
       onSubmit={(values: ISale, { resetForm }) => {
-        boundData(values);
-        handleClose();
+        console.log("vals", values);
+        if (sale) values.id = sale?.id;
+        action(values);
         resetForm();
+        handleClose();
       }}
     >
       {() => (
@@ -126,8 +119,4 @@ const SaleForm = ({ boundData, handleClose, style, sale }: ISaleForm) => {
   );
 };
 
-const ConnectedSaleForm = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SaleForm);
-export default ConnectedSaleForm;
+export default SaleForm;
