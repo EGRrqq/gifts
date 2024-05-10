@@ -102,11 +102,9 @@ const SaleForm = ({ handleClose, style, sale, action }: IProps) => {
     <Formik
       initialValues={initValues(sale)}
       validationSchema={() => validationSchema(cards)}
-      onSubmit={(values: ISale, { resetForm }) => {
-        console.log("vals", values);
+      onSubmit={(values: ISale) => {
         if (sale) values.id = sale?.id;
         action(values);
-        resetForm();
         handleClose();
       }}
     >
