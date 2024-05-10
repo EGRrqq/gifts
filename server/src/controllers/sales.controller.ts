@@ -2,11 +2,12 @@ import { TExpressParams } from "./TExpressParams";
 import * as sale from "../services/sales.service";
 import { Sale } from "../models";
 
-export const getWithSearch: TExpressParams = async (req, res, next) => {
+export const get: TExpressParams = async (req, res, next) => {
   try {
     const q = req.query.name ? req.query.name : "";
+    const f = req.query.filter ? req.query.filter : "";
 
-    const data = await sale.getWithSearch(q.toString());
+    const data = await sale.get(q.toString(), f.toString());
     res.json(data);
   } catch (err) {
     const message = "Error while getting sales";
