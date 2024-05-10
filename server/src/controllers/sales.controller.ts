@@ -36,8 +36,7 @@ export const getSingle: TExpressParams = async (req, res, next) => {
     res.json(data);
   } catch (err) {
     const message = `Error while getting Sale with id ${req.params.id}.`;
-
-    res.status(err.code || 500).json({
+    res.status(err.statusCode || 500).json({
       message: err.message || message,
     });
     next(err);
@@ -51,7 +50,7 @@ export const update: TExpressParams = async (req, res, next) => {
   } catch (err) {
     const message = "Error while updating Sale";
 
-    res.status(500).json({
+    res.status(err.statusCode || 500).json({
       message: err.message || message,
     });
     next(err);
@@ -65,7 +64,7 @@ export const remove: TExpressParams = async (req, res, next) => {
   } catch (err) {
     const message = "Error while deleted Sale";
 
-    res.status(err.code || 500).json({
+    res.status(err.statusCode || 500).json({
       message: err.message || message,
     });
     next(err);
