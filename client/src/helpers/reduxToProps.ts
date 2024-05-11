@@ -12,7 +12,7 @@ interface LinkStateProps<T> {
 
 interface LinkDispatchProps<T, A> {
   boundData: (
-    dataItem?: T | number | string
+    ...dataItem: Array<T | number | string>
   ) => (dispatch: Dispatch<AnyAction>) => A;
 }
 

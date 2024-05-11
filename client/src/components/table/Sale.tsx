@@ -1,6 +1,4 @@
-// future tableRow component
-
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 import { connect } from "react-redux";
 
@@ -20,7 +18,9 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { SaleItem } from "./composed";
-import { Input } from "@mui/material";
+import { Button, Input } from "@mui/material";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 const mapStateToProps = createMapStateToProps<ISale>(
   (state) => state.sale.sales
@@ -29,11 +29,37 @@ const mapDispatchToProps = createMapDispatchToProps(saleActions.boundGetAll);
 type SaleProps = LinkProps<ISale, typeof saleActions>;
 
 const Sale = ({ boundData, data }: SaleProps) => {
-  const [value, setValue] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+  const [sortFlag, setSortFlag] = useState<boolean | undefined>(undefined);
+  const [sortValue, setSortValue] = useState<"ASC" | "DESC" | "">("");
+  const [hoverFlag, setHoverFlag] = useState<boolean>(false);
 
   useEffect(() => {
-    boundData(value);
-  }, [boundData, value]);
+    boundData(searchValue, sortValue);
+  }, [boundData, searchValue, sortValue]);
+
+  function handleClick() {
+    const newSortFlag = sortFlag === undefined ? true : !sortFlag;
+    setSortFlag(newSortFlag);
+    newSortFlag === true ? setSortValue("ASC") : setSortValue("DESC");
+  }
+  function handleArrowIcon(hoverIcon?: ReactNode): ReactNode {
+    let endIcon: ReactNode = hoverIcon || <></>;
+
+    if (hoverFlag) endIcon = <ArrowUpwardIcon sx={{ opacity: 0.5 }} />;
+    if (sortFlag === true) endIcon = <ArrowUpwardIcon />;
+    if (sortFlag === false) endIcon = <ArrowDownwardIcon />;
+
+    return endIcon;
+  }
+  function handleMouseOver() {
+    if (sortFlag !== undefined) return;
+    setHoverFlag(true);
+  }
+  function handleMouseOut() {
+    if (sortFlag !== undefined) return;
+    setHoverFlag(false);
+  }
 
   return (
     <TableContainer component={Paper} sx={{ overflowX: "initial" }}>
@@ -54,8 +80,8 @@ const Sale = ({ boundData, data }: SaleProps) => {
                 autoFocus
                 fullWidth
                 placeholder="search"
-                value={value}
-                onInput={(e) => setValue(e.target.value)}
+                value={searchValue}
+                onInput={(e) => setSearchValue(e.target.value)}
               />
             </TableCell>
 
@@ -66,7 +92,16 @@ const Sale = ({ boundData, data }: SaleProps) => {
           </TableRow>
 
           <TableRow>
-            <TableCell align="center">Название рассылки</TableCell>
+            <TableCell align="center">
+              <Button
+                onMouseOver={handleMouseOver}
+                onMouseOut={handleMouseOut}
+                onClick={handleClick}
+                endIcon={handleArrowIcon()}
+              >
+                Название рассылки
+              </Button>
+            </TableCell>
             <TableCell align="center">Дата рассылки</TableCell>
             <TableCell align="center">Кол-во отправленных подарков</TableCell>
             <TableCell align="center">Отмена рассылки</TableCell>

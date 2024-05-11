@@ -5,11 +5,13 @@ import * as SALE from "../methods";
 import { getLink } from "../../../helpers";
 import { ISale } from "../model/interfaces";
 
-export const boundGetAll = (query?: string) => {
+export const boundGetAll = (query?: string, sort?: "ASC" | "DESC" | "") => {
   return (dispatch: Dispatch) => {
     dispatch(SALE.getAll.request());
     axios
-      .get<ISale[]>(getLink("sales"), { params: { name: query } })
+      .get<ISale[]>(getLink("sales"), {
+        params: { name: query, sort: sort?.toLowerCase() },
+      })
       .then((response) => {
         const sales = response.data;
         dispatch(SALE.getAll.receive(sales));
