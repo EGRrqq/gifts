@@ -36,32 +36,51 @@ const Sale = ({ boundData, data }: SaleProps) => {
   }, [boundData, value]);
 
   return (
-    <>
-      <Input
-        placeholder="search"
-        value={value}
-        onInput={(e) => setValue(e.target.value)}
-      />
+    <TableContainer component={Paper} sx={{ overflowX: "initial" }}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead
+          sx={{
+            position: "sticky",
+            top: 1,
+            zIndex: 1,
+            "& .MuiTableCell-root": { backgroundColor: "background.paper" },
+            th: { borderBottom: 0 },
+            outline: "solid",
+          }}
+        >
+          <TableRow sx={{ outline: "solid" }}>
+            <TableCell align="center">
+              <Input
+                autoFocus
+                fullWidth
+                placeholder="search"
+                value={value}
+                onInput={(e) => setValue(e.target.value)}
+              />
+            </TableCell>
 
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="center">Название рассылки</TableCell>
-              <TableCell align="center">Дата рассылки</TableCell>
-              <TableCell align="center">Кол-во отправленных подарков</TableCell>
-              <TableCell align="center">Отмена рассылки</TableCell>
-              <TableCell align="center">Редактировать рассылку</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.map((d) => (
-              <SaleItem key={d.id} sale={d} />
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </>
+            <TableCell align="center"></TableCell>
+            <TableCell align="center"></TableCell>
+            <TableCell align="center"></TableCell>
+            <TableCell align="center"></TableCell>
+          </TableRow>
+
+          <TableRow>
+            <TableCell align="center">Название рассылки</TableCell>
+            <TableCell align="center">Дата рассылки</TableCell>
+            <TableCell align="center">Кол-во отправленных подарков</TableCell>
+            <TableCell align="center">Отмена рассылки</TableCell>
+            <TableCell align="center">Редактировать рассылку</TableCell>
+          </TableRow>
+        </TableHead>
+
+        <TableBody sx={{ outline: "solid" }}>
+          {data.map((d) => (
+            <SaleItem key={d.id} sale={d} />
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 
