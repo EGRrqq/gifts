@@ -5,7 +5,7 @@ import { Sale } from "../models";
 export const get: TExpressParams = async (req, res, next) => {
   try {
     const q = req.query.name ? req.query.name : "";
-    const f = req.query.filter ? req.query.filter : "";
+    const f = req.query.sort ? req.query.sort : "";
 
     const data = await sale.get(q.toString(), f.toString());
     res.json(data);

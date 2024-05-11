@@ -2,11 +2,11 @@ import { promiseQuery } from "./db.service";
 import { validateRows, validateWithId } from "../utils/helpers.util";
 import { ISale } from "../models";
 
-export async function get(query: string, filter: string) {
+export async function get(query: string, sort: string) {
   let sqlQuery = "SELECT * FROM sales WHERE name LIKE ?";
 
-  if (filter === "asc" || filter === "desc") {
-    sqlQuery += ` ORDER BY name ${filter.toUpperCase()}`;
+  if (sort === "asc" || sort === "desc") {
+    sqlQuery += ` ORDER BY name ${sort.toUpperCase()}`;
   }
 
   const { result } = await promiseQuery(sqlQuery, [`%${query}%`]);
