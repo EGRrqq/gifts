@@ -1,13 +1,14 @@
 import { TExpressParams } from "./TExpressParams";
 import * as sale from "../services/sales.service";
 import { Sale } from "../models";
+import { validateQueryParam } from "../utils/helpers.util";
 
 export const get: TExpressParams = async (req, res, next) => {
   try {
-    const name = req.query.name ? req.query.name : "";
-    const sort = req.query.sort ? req.query.sort : "";
-    const page = req.query.page ? req.query.page : 1;
-    const limit = req.query.limit ? req.query.limit : 99999;
+    const name = validateQueryParam(req, "name", "");
+    const sort = validateQueryParam(req, "sort", "");
+    const page = validateQueryParam(req, "page", 1);
+    const limit = validateQueryParam(req, "limit", 999999);
 
     const data = await sale.get(
       name.toString(),

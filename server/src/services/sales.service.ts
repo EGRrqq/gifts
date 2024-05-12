@@ -9,6 +9,7 @@ export async function get(
   limit: number
 ) {
   let sqlQuery = "SELECT * FROM sales WHERE name LIKE ?";
+  const countQuery = "SELECT COUNT(*) as total FROM sales WHERE name LIKE ?";
 
   if (sort.toLowerCase() === "asc" || sort.toLowerCase() === "desc") {
     sqlQuery += ` ORDER BY name ${sort.toUpperCase()}`;
@@ -17,11 +18,13 @@ export async function get(
   const offset = (page - 1) * limit;
   sqlQuery += " LIMIT ? OFFSET ?";
 
-  const values = [`%${query}%`, limit, offset];
-  const { result } = await promiseQuery(sqlQuery, values);
-  const rows = validateRows(result);
+  const rowsValues = [`%${query}%`, limit, offset];
+  const { result: rowsResult } = await promiseQuery(sqlQuery, rowsValues);
+  const rows = validateRows(rowsResult);
 
-  return rows;
+  const { result: totalResult } = await promiseQuery(countQuery, ["%%"]);
+
+  return { rows, total: totalResult[0].total };
 }
 
 export async function create(sale: ISale) {
