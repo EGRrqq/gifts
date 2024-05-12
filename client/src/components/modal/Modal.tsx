@@ -13,6 +13,7 @@ interface IProps {
 
   submitBtnText: string;
   bodyText: string;
+  modalHeader: string;
 }
 
 const BasicModal = ({
@@ -23,6 +24,7 @@ const BasicModal = ({
   action,
   bodyText,
   submitBtnText,
+  modalHeader,
 }: IProps) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -57,6 +59,7 @@ const BasicModal = ({
           sale={sale}
           bodyText={bodyText}
           submitBtnText={submitBtnText}
+          modalHeader={modalHeader}
         />
       </Modal>
     </article>

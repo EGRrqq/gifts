@@ -3,17 +3,20 @@ import { FormikTextField } from "../solid";
 import { ConnectedGiftCardSelect as GiftCardSelect } from "./GiftCardSelect";
 import { TFormContentProps } from "../../../types";
 import { ConfirmModal } from "../../modal/ConfirmModal";
+import { Divider, Typography } from "@mui/material";
 
 interface IProps {
   fields: TFormContentProps;
   submitBtnText: string;
   bodyText: string;
+  modalHeader: string;
 }
 
 export const SaleFormContent = ({
   fields,
   submitBtnText,
   bodyText,
+  modalHeader,
 }: IProps) => {
   const {
     name,
@@ -26,6 +29,15 @@ export const SaleFormContent = ({
 
   return (
     <Form style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+      <Typography
+        style={{ fontWeight: "bold", textAlign: "center" }}
+        variant="h5"
+        component="h2"
+      >
+        {modalHeader}
+      </Typography>
+      <Divider style={{ background: "black" }} />
+
       <FormikTextField id={name.id} label={name.label} autoFocus />
       <GiftCardSelect id={gift_card_id.id} label={gift_card_id.label} />
       <FormikTextField

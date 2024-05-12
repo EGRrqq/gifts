@@ -8,7 +8,7 @@ import { AppState } from "../../redux/store";
 import { dateDiff, findById } from "../../helpers";
 
 import { ISale } from "../../redux/sale/model/interfaces";
-import { Paper } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 
 const fields: TFormContentProps = {
   name: { id: "name", label: "Name" },
@@ -94,6 +94,8 @@ interface IProps {
 
   submitBtnText: string;
   bodyText: string;
+
+  modalHeader: string;
 }
 
 const SaleForm = ({
@@ -103,6 +105,7 @@ const SaleForm = ({
   action,
   submitBtnText,
   bodyText,
+  modalHeader,
 }: IProps) => {
   const cards = useSelector<AppState>(
     (state) => state.giftCard.cards
@@ -124,6 +127,7 @@ const SaleForm = ({
             submitBtnText={submitBtnText}
             bodyText={bodyText}
             fields={fields}
+            modalHeader={modalHeader}
           />
         </Paper>
       )}

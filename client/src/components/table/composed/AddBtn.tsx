@@ -31,6 +31,7 @@ const AddBtn = ({ boundData }: IAddBtn) => {
       }}
       submitBtnText="submit"
       bodyText="Are you sure you want to create a sale?"
+      modalHeader="Create sale"
       icon={
         <AddIcon
           style={{

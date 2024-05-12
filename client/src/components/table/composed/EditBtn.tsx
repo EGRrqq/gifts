@@ -39,6 +39,7 @@ const EditBtn = ({ boundData, sale }: IRemoveBtn) => {
       sale={sale}
       submitBtnText="Save"
       bodyText="Are you sure you want to edit the sale"
+      modalHeader="Edit sale"
     />
   );
 };
