@@ -10,7 +10,7 @@ export async function get(
 ) {
   let sqlQuery = "SELECT * FROM sales WHERE name LIKE ?";
 
-  if (sort === "asc" || sort === "desc") {
+  if (sort.toLowerCase() === "asc" || sort.toLowerCase() === "desc") {
     sqlQuery += ` ORDER BY name ${sort.toUpperCase()}`;
   }
 
