@@ -4,10 +4,17 @@ import { Sale } from "../models";
 
 export const get: TExpressParams = async (req, res, next) => {
   try {
-    const q = req.query.name ? req.query.name : "";
-    const f = req.query.sort ? req.query.sort : "";
+    const name = req.query.name ? req.query.name : "";
+    const sort = req.query.sort ? req.query.sort : "";
+    const page = req.query.page ? req.query.page : 1;
+    const limit = req.query.limit ? req.query.limit : 99999;
 
-    const data = await sale.get(q.toString(), f.toString());
+    const data = await sale.get(
+      name.toString(),
+      sort.toString(),
+      Number(page),
+      Number(limit)
+    );
     res.json(data);
   } catch (err) {
     const message = "Error while getting sales";

@@ -2,14 +2,23 @@ import { promiseQuery } from "./db.service";
 import { validateRows, validateWithId } from "../utils/helpers.util";
 import { ISale } from "../models";
 
-export async function get(query: string, sort: string) {
+export async function get(
+  query: string,
+  sort: string,
+  page: number,
+  limit: number
+) {
   let sqlQuery = "SELECT * FROM sales WHERE name LIKE ?";
 
   if (sort === "asc" || sort === "desc") {
     sqlQuery += ` ORDER BY name ${sort.toUpperCase()}`;
   }
 
-  const { result } = await promiseQuery(sqlQuery, [`%${query}%`]);
+  const offset = (page - 1) * limit;
+  sqlQuery += " LIMIT ? OFFSET ?";
+
+  const values = [`%${query}%`, limit, offset];
+  const { result } = await promiseQuery(sqlQuery, values);
   const rows = validateRows(result);
 
   return rows;
