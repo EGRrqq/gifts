@@ -6,7 +6,10 @@
     "client": "npm run dev --prefix client",
     "server": "npm run server --prefix server",
     "db-init": "npm run db-init --prefix server",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "i:server": "npm i --prefix server --legacy-peer-deps",
+    "i:client": "npm i --prefix client --legacy-peer-deps",
+    "i:all": "npm i && concurrently \"npm run i:server\" \"npm run i:client\""
   },
   "dependencies": {
     "concurrently": "^8.2.2"
