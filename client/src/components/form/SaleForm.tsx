@@ -91,9 +91,19 @@ interface IProps {
   handleClose: () => void;
   style?: React.CSSProperties;
   sale?: ISale;
+
+  submitBtnText: string;
+  bodyText: string;
 }
 
-const SaleForm = ({ handleClose, style, sale, action }: IProps) => {
+const SaleForm = ({
+  handleClose,
+  style,
+  sale,
+  action,
+  submitBtnText,
+  bodyText,
+}: IProps) => {
   const cards = useSelector<AppState>(
     (state) => state.giftCard.cards
   ) as IGiftCard[];
@@ -110,7 +120,11 @@ const SaleForm = ({ handleClose, style, sale, action }: IProps) => {
     >
       {() => (
         <Paper style={style}>
-          <SaleFormContent fields={fields} />
+          <SaleFormContent
+            submitBtnText={submitBtnText}
+            bodyText={bodyText}
+            fields={fields}
+          />
         </Paper>
       )}
     </Formik>

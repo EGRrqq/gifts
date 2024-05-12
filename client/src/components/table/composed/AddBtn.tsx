@@ -29,6 +29,8 @@ const AddBtn = ({ boundData }: IAddBtn) => {
         top: "90%",
         left: "95%",
       }}
+      submitBtnText="submit"
+      bodyText="Are you sure you want to create a sale?"
       icon={
         <AddIcon
           style={{

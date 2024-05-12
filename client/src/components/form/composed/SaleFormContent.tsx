@@ -1,14 +1,20 @@
 import { Form } from "formik";
 import { FormikTextField } from "../solid";
 import { ConnectedGiftCardSelect as GiftCardSelect } from "./GiftCardSelect";
-import { Button } from "@mui/material";
 import { TFormContentProps } from "../../../types";
+import { ConfirmModal } from "../../modal/ConfirmModal";
 
 interface IProps {
   fields: TFormContentProps;
+  submitBtnText: string;
+  bodyText: string;
 }
 
-export const SaleFormContent = ({ fields }: IProps) => {
+export const SaleFormContent = ({
+  fields,
+  submitBtnText,
+  bodyText,
+}: IProps) => {
   const {
     name,
     gift_card_id,
@@ -47,9 +53,7 @@ export const SaleFormContent = ({ fields }: IProps) => {
         maxRows={6}
       />
 
-      <Button variant="contained" type="submit">
-        Submit
-      </Button>
+      <ConfirmModal submitBtnText={submitBtnText} bodyHeaderText={bodyText} />
     </Form>
   );
 };

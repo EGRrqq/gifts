@@ -10,6 +10,9 @@ interface IProps {
   style?: React.CSSProperties;
   sale?: ISale;
   action: (data: ISale) => void;
+
+  submitBtnText: string;
+  bodyText: string;
 }
 
 const BasicModal = ({
@@ -18,6 +21,8 @@ const BasicModal = ({
   style,
   "aria-label": ariaLabel,
   action,
+  bodyText,
+  submitBtnText,
 }: IProps) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -50,6 +55,8 @@ const BasicModal = ({
             minWidth: "50%",
           }}
           sale={sale}
+          bodyText={bodyText}
+          submitBtnText={submitBtnText}
         />
       </Modal>
     </article>
