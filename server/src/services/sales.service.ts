@@ -22,7 +22,9 @@ export async function get(
   const { result: rowsResult } = await promiseQuery(sqlQuery, rowsValues);
   const rows = validateRows(rowsResult);
 
-  const { result: totalResult } = await promiseQuery(countQuery, ["%%"]);
+  const { result: totalResult } = await promiseQuery(countQuery, [
+    `%${query}%`,
+  ]);
 
   return { rows, total: totalResult[0].total };
 }
