@@ -5,16 +5,31 @@ import * as SALE from "../methods";
 import { getLink } from "../../../helpers";
 import { ISale } from "../model/interfaces";
 
-export const boundGetAll = (query?: string, sort?: "ASC" | "DESC" | "") => {
+interface IFetch {
+  rows: ISale[];
+  total: number;
+}
+
+export const boundGetAll = (
+  name?: string,
+  sort?: "ASC" | "DESC" | "",
+  page?: string,
+  limit?: string
+) => {
   return (dispatch: Dispatch) => {
     dispatch(SALE.getAll.request());
     axios
-      .get<ISale[]>(getLink("sales"), {
-        params: { name: query, sort: sort?.toLowerCase() },
+      .get<IFetch>(getLink("sales"), {
+        params: {
+          name,
+          sort,
+          page,
+          limit,
+        },
       })
       .then((response) => {
-        const sales = response.data;
-        dispatch(SALE.getAll.receive(sales));
+        const { rows, total } = response.data;
+        dispatch(SALE.getAll.receive(rows, total));
       })
       .catch((error) => {
         dispatch(SALE.getAll.invalidate(error.message));

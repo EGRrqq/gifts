@@ -18,15 +18,17 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { SaleItem } from "./composed";
-import { Button, Input } from "@mui/material";
+import { Button, Input, TableFooter, TablePagination } from "@mui/material";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 
-const mapStateToProps = createMapStateToProps<ISale>(
-  (state) => state.sale.sales
-);
+const mapStateToProps = createMapStateToProps((state) => {
+  return { sales: state.sale.sales, total: state.sale.totalAmount };
+});
 const mapDispatchToProps = createMapDispatchToProps(saleActions.boundGetAll);
-type SaleProps = LinkProps<ISale, typeof saleActions>;
+type SaleProps = LinkProps<{ rows: ISale; total: number }, typeof saleActions>;
+const ALL = 999999;
 
 const Sale = ({ boundData, data }: SaleProps) => {
   const [searchValue, setSearchValue] = useState("");
@@ -34,9 +36,12 @@ const Sale = ({ boundData, data }: SaleProps) => {
   const [sortValue, setSortValue] = useState<"ASC" | "DESC" | "">("");
   const [hoverFlag, setHoverFlag] = useState<boolean>(false);
 
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(ALL);
+
   useEffect(() => {
-    boundData(searchValue, sortValue);
-  }, [boundData, searchValue, sortValue]);
+    boundData(searchValue, sortValue, page + 1, rowsPerPage);
+  }, [boundData, searchValue, sortValue, page, rowsPerPage]);
 
   function handleClick() {
     const newSortFlag = sortFlag === undefined ? true : !sortFlag;
@@ -61,9 +66,26 @@ const Sale = ({ boundData, data }: SaleProps) => {
     setHoverFlag(false);
   }
 
+  function handleChangePage(
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number
+  ) {
+    setPage(newPage);
+  }
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   return (
     <TableContainer component={Paper} sx={{ overflowX: "initial" }}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table
+        sx={{ minWidth: 650, outline: "solid 0.1rem" }}
+        aria-label="sale table"
+      >
         <TableHead
           sx={{
             position: "sticky",
@@ -71,10 +93,10 @@ const Sale = ({ boundData, data }: SaleProps) => {
             zIndex: 1,
             "& .MuiTableCell-root": { backgroundColor: "background.paper" },
             th: { borderBottom: 0 },
-            outline: "solid",
+            outline: "solid 0.1rem",
           }}
         >
-          <TableRow sx={{ outline: "solid" }}>
+          <TableRow sx={{ outline: "solid 0.05rem" }}>
             <TableCell align="center">
               <Input
                 autoFocus
@@ -91,7 +113,7 @@ const Sale = ({ boundData, data }: SaleProps) => {
             <TableCell align="center"></TableCell>
           </TableRow>
 
-          <TableRow>
+          <TableRow sx={{ outline: "solid 0.05rem" }}>
             <TableCell align="center">
               <Button
                 onMouseOver={handleMouseOver}
@@ -109,11 +131,33 @@ const Sale = ({ boundData, data }: SaleProps) => {
           </TableRow>
         </TableHead>
 
-        <TableBody sx={{ outline: "solid" }}>
-          {data.map((d) => (
+        <TableBody sx={{ outline: "solid 0.05rem" }}>
+          {data.sales.map((d) => (
             <SaleItem key={d.id} sale={d} />
           ))}
         </TableBody>
+
+        <TableFooter sx={{ outline: "solid 0.05rem" }}>
+          <TableRow>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25, 50, { label: "All", value: ALL }]}
+              count={data.total}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              slotProps={{
+                select: {
+                  inputProps: {
+                    "aria-label": "rows per page",
+                  },
+                  native: true,
+                },
+              }}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+              ActionsComponent={TablePaginationActions}
+            />
+          </TableRow>
+        </TableFooter>
       </Table>
     </TableContainer>
   );

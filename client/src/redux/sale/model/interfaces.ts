@@ -11,5 +11,6 @@ export interface ISale {
 export interface ISaleAsync {
   loading: boolean;
   sales: ISale[];
+  totalAmount: number;
   error: string;
 }

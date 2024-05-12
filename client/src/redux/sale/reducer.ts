@@ -17,7 +17,13 @@ const saleReducer = (
     case SALE.FETCH_REQUEST:
       return { ...state, loading: true };
     case SALE.FETCH_SUCCESS:
-      return { ...state, loading: false, sales: action.sales };
+      return {
+        ...state,
+        loading: false,
+        sales: action.sales,
+        totalAmount: action.totalAmount,
+      };
+
     case SALE.FETCH_FAILURE:
       return { ...state, loading: false, error: action.error };
 
