@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import { useTheme } from "@mui/material/styles";
 import {
   LinkProps,
   createMapDispatchToProps,
@@ -16,12 +17,14 @@ const mapDispatchToProps = createMapDispatchToProps(saleActions.boundPostData);
 type IAddBtn = LinkProps<ISale, typeof saleActions>;
 
 const AddBtn = ({ boundData }: IAddBtn) => {
+  const { palette } = useTheme();
+
   return (
     <Modal
       action={boundData}
       aria-label="Add Sale Btn"
       style={{
-        backgroundColor: "gray",
+        backgroundColor: palette.primary.light,
         borderRadius: 0,
 
         transform: "translate(-50%, -50%)",

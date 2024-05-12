@@ -1,4 +1,5 @@
 import EditIcon from "@mui/icons-material/Edit";
+import { useTheme } from "@mui/material/styles";
 import {
   LinkProps,
   createMapDispatchToProps,
@@ -21,16 +22,20 @@ interface IProps {
 type IRemoveBtn = LinkProps<ISale, typeof saleActions> & IProps;
 
 const EditBtn = ({ boundData, sale }: IRemoveBtn) => {
+  const { palette } = useTheme();
+
   return (
     <Modal
       action={boundData}
       aria-label="Edit Sale Btn"
-      style={{ backgroundColor: "gray", borderRadius: 0 }}
+      style={{
+        background: palette.secondary.light,
+        borderRadius: 0,
+      }}
       icon={
         <EditIcon
           style={{
             color: "white",
-            background: "transparent",
             borderRadius: 0,
           }}
           fontSize="inherit"

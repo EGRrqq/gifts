@@ -1,4 +1,5 @@
 import { IconButton } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import RemoveIcon from "@mui/icons-material/Remove";
 import {
   LinkProps,
@@ -21,12 +22,12 @@ interface IProps {
 type IRemoveBtn = LinkProps<ISale, typeof saleActions> & IProps;
 
 const RemoveBtn = ({ boundData, sale }: IRemoveBtn) => {
+  const { palette } = useTheme();
+
   return (
     <IconButton
-      // looks like disable, change colors
-      // move btn in a model such as table row
       style={{
-        backgroundColor: "gray",
+        backgroundColor: palette.error.light,
         borderRadius: 0,
       }}
       aria-label="delete"
